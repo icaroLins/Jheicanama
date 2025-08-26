@@ -1,0 +1,6 @@
+com\example\cadastro\service\UserService.class
+com\example\cadastro\CadastroApplication.class
+com\example\cadastro\controller\AuthController.class
+com\example\cadastro\repository\UserRepository.class
+com\example\cadastro\model\User.class
+com\example\cadastro\security\JwtUtil.class
