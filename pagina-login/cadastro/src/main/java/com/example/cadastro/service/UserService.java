@@ -2,15 +2,19 @@ package com.example.cadastro.service;
 
 import com.example.cadastro.model.User;
 import com.example.cadastro.repository.UserRepository;
-
+import com.example.cadastro.security.JwtUtil;
 import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public User register(User user){
         if(userRepository.findByCpf(user.getCpf()) != null){
@@ -29,4 +33,20 @@ public class UserService {
     public User searchByCPF(String cpf){
         return userRepository.findByCpf(cpf);
     }
+
+    public boolean validarLogin(String email, String senha){
+        User user = userRepository.findByEmail(email);
+
+        if(user == null){
+            return false;
+        }
+
+        if(!user.getPassWord().equals(senha)){
+            return false;
+        }
+
+        return true;
+    }
+
+   
 }
