@@ -4,4 +4,5 @@ Cassandra - Scrum Master
 Ícaro - Desenvolvedor
 Maria - Desenvolvedor
 Jheffiny - Documentador
+Julia- Documentador
 Natália - Gerente do projeto
