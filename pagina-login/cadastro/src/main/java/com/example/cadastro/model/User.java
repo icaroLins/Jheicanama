@@ -1,24 +1,14 @@
 package com.example.cadastro.model;
-import java.time.LocalDate;
+
 
 import jakarta.persistence.*;
-import jakarta.validation.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
-
-import java.time.LocalDate;
 import jakarta.persistence.Entity;
 
 @Entity
 @Table(name = "users")
-public class User {
-
-    @Id
-    @NotBlank(message = "CPF é obrigatório")
-    @Size(min = 11, max = 11, message = "CPF deve ter 11 caracteres")
-    private String cpf;
+public abstract class User {
 
     private Long ip;
 
@@ -31,9 +21,6 @@ public class User {
     @Email(message = "Email inválido")
     @NotBlank(message = "Email é obrigatório")
     private String email;
-
-    @Past(message = "Data de nascimento deve ser no passado")
-    private LocalDate dataNacimento;
 
     public String getEmail() {
         return email;
@@ -67,21 +54,7 @@ public class User {
         this.ip = ip;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public LocalDate getDataNacimento() {
-        return dataNacimento;
-    }
-
-    public void setDataNacimento(LocalDate dataNacimento) {
-        this.dataNacimento = dataNacimento;
-    }
+    
 
     
 }
