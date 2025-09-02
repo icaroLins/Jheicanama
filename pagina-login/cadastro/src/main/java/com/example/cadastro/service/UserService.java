@@ -1,9 +1,8 @@
 package com.example.cadastro.service;
-
+import com.example.cadastro.model.Candidate;
 import com.example.cadastro.model.User;
 import com.example.cadastro.repository.UserRepository;
 import com.example.cadastro.security.JwtUtil;
-import javax.management.RuntimeErrorException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEnconder;
 
-    public User register(User user){
+    public User register(Candidate user){
         if(userRepository.findByCpf(user.getCpf()) != null){
             throw new RuntimeException("CPF ja cadastrado!");
         }
@@ -53,7 +52,7 @@ public class UserService {
         return true;
     }
 
-    public String gerarToken(User user){
+    public String gerarToken(Candidate user){
         return jwtUtil.generateToken(user.getCpf());
     }
    
