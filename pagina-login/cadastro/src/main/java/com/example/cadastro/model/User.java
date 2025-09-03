@@ -4,13 +4,14 @@ package com.example.cadastro.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.Entity;
 
-@Entity
-@Table(name = "users")
+
+@MappedSuperclass
 public abstract class User {
 
-    private Long ip;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
      @NotBlank(message = "Senha é obrigatória")
     private String passWord;
@@ -20,6 +21,7 @@ public abstract class User {
 
     @Email(message = "Email inválido")
     @NotBlank(message = "Email é obrigatório")
+    @Column(unique = true)
     private String email;
 
     public String getEmail() {
@@ -46,12 +48,12 @@ public abstract class User {
         this.passWord = passWord;
     }
 
-    public Long getIp() {
-        return ip;
+    public Long getId() {
+        return id;
     }
 
-    public void setIp(Long ip) {
-        this.ip = ip;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     

@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEnconder;
 
-    public User register(Candidate user){
+    public Candidate register(Candidate user){
         if(userRepository.findByCpf(user.getCpf()) != null){
             throw new RuntimeException("CPF ja cadastrado!");
         }
@@ -30,11 +30,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User searchByEmail(String email){
+    public Candidate searchByEmail(String email){
         return userRepository.findByEmail(email);
     }
 
-    public User searchByCPF(String cpf){
+    public Candidate searchByCPF(String cpf){
         return userRepository.findByCpf(cpf);
     }
 
@@ -55,5 +55,7 @@ public class UserService {
     public String gerarToken(Candidate user){
         return jwtUtil.generateToken(user.getCpf());
     }
+
+    
    
 }
