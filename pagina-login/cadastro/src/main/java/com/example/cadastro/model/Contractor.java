@@ -1,5 +1,10 @@
 package com.example.cadastro.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "contractors")
 public class Contractor extends User {
     private String cnpj;
     private String empresa;
