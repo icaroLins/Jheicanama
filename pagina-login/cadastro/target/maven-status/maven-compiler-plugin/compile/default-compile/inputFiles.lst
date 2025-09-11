@@ -6,7 +6,10 @@ C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadast
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\model\User.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\repository\ContractorRepository.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\repository\UserRepository.java
+C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\security\JwtAuthenticationFilter.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\security\JwtUtil.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\security\SecurityConfig.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\service\ContractorService.java
+C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\service\CustomUserDetailsService.java
 C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\service\UserService.java
+C:\Users\55619\Jheicanama\pagina-login\cadastro\src\main\java\com\example\cadastro\validator\ValidatorCpf.java

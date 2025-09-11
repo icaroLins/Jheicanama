@@ -1,8 +1,9 @@
 package com.example.cadastro.service;
 import com.example.cadastro.model.Candidate;
-import com.example.cadastro.model.User;
 import com.example.cadastro.repository.UserRepository;
 import com.example.cadastro.security.JwtUtil;
+import com.example.cadastro.validator.ValidatorCpf;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,14 @@ public class UserService {
     PasswordEncoder passwordEnconder;
 
     public Candidate register(Candidate user){
+
+        String cpfLimpo = user.getCpf().replaceAll("\\D", "");
+        user.setCpf(cpfLimpo);
+
+        if(!ValidatorCpf.isValid(user.getCpf())){
+            throw new RuntimeException("CPF invalido!");
+        }
+
         if(userRepository.findByCpf(user.getCpf()) != null){
             throw new RuntimeException("CPF ja cadastrado!");
         }
@@ -35,11 +44,12 @@ public class UserService {
     }
 
     public Candidate searchByCPF(String cpf){
+        cpf = cpf.replaceAll("[^\\d]", "");
         return userRepository.findByCpf(cpf);
     }
 
     public boolean validarLogin(String email, String senha){
-        User user = userRepository.findByEmail(email);
+        Candidate user = userRepository.findByEmail(email);
 
         if(user == null){
             return false;
