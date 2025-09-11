@@ -1,10 +1,8 @@
 package com.example.cadastro.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
 
 @MappedSuperclass
 public abstract class User {
@@ -14,6 +12,7 @@ public abstract class User {
     private Long id;
 
      @NotBlank(message = "Senha é obrigatória")
+     @Column(name = "pass_word", nullable = false)
     private String passWord;
 
      @NotBlank(message = "Nome é obrigatório")
@@ -55,8 +54,4 @@ public abstract class User {
     public void setId(Long id) {
         this.id = id;
     }
-
-    
-
-    
 }

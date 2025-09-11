@@ -1,8 +1,6 @@
 package com.example.cadastro.controller;
 
-
 import com.example.cadastro.model.Candidate;
-import com.example.cadastro.model.User;
 import com.example.cadastro.service.UserService;
 import com.example.cadastro.security.JwtUtil;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +31,7 @@ public class AuthController {
         try{
             Candidate novo = userService.register(usuario);
             return ResponseEntity.ok(novo);
+            
         }catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -52,7 +51,8 @@ public class AuthController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<?> searchByCpf(@PathVariable String cpf){
-        User user = userService.searchByCPF(cpf);
+        cpf = cpf.replaceAll("[^\\d]","");
+        Candidate user = userService.searchByCPF(cpf);
         if(user != null){
             return ResponseEntity.ok(user);
         }
@@ -68,7 +68,8 @@ public class AuthController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
         String cpf = jwtUtil.extractCpf(token);
-        User user = userService.searchByCPF(cpf);
+        cpf = cpf.replaceAll("[^\\d]", "");
+        Candidate user = userService.searchByCPF(cpf);
 
         return ResponseEntity.ok(user);
     }
