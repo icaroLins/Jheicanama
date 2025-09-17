@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
         <div class="container">
@@ -31,12 +31,13 @@
         <div class="login-box" id="login-box">
             <h3>LOGIN</h3>
             <div class="input-group">
-                <input type="text" placeholder="CPF">
+                <input type="text" placeholder="Email">
             </div>
             <div class="input-group">
                 <input type="password" placeholder="SENHA">
             </div>
             <div class="buttons-group">
+                <a href="#" class="btn btn-login" id="btn-login">login</a>
                 <a href="#" class="btn btn-register" id="btn-cadastrar">Cadastra-se</a>
                 <a href="#" class="btn">Esqueci minha senha</a>
             </div>
@@ -46,19 +47,22 @@
         <div class="login-box hidden" id="cadastro-box">
             <h3>CADASTRO</h3>
             <div class="input-group">
-                <input type="text" placeholder="Nome completo">
+                <input type="text" id="candidato-nome" placeholder="Nome completo">
             </div>
             <div class="input-group">
-                <input type="email" placeholder="E-mail">
+                <input type="email" id="candidato-email" placeholder="E-mail">
+            </div>
+             <div class="input-group">
+                <input type="text" id="candidato-cpf" placeholder="CPF">
             </div>
             <div class="input-group">
-                <input type="password" placeholder="Crie uma senha">
+                <input type="password" id="candidato-senha" placeholder="Crie uma senha">
             </div>
             <div class="input-group">
-                 <input type="date" placeholder="Data de Nascimento">
+                 <input type="date" id="candidato-nascimento" placeholder="Data de Nascimento">
             </div>
             <div class="buttons-group">
-                <a href="#" class="btn">FINALIZAR</a>
+                <a href="#" id="btn-finalizar-candidato" class="btn">FINALIZAR</a>
                  <div class="side-by-side-buttons">
                     <a href="#" class="btn btn-back" id="btn-voltar">Voltar</a>
                     <a href="#" class="btn btn-contratante">Contratante</a>
@@ -67,25 +71,25 @@
         </div>
 
         <!-- 3. Box de Cadastro de Contratante (MOVIDO PARA DENTRO DO RIGHT-PANEL) -->
-        <div class="login-box hidden" id="contratante-box">
+        <div class="login-box hidden" id="form-contratante">
             <h3>CADASTRO CONTRATANTE</h3>
             <div class="input-group">
-                <input type="text" id="nome-empresa" placeholder="Nome da empresa">
+                <input type="text" id="contratante-empresa" placeholder="Nome da empresa">
             </div>
             <div class="input-group">
-                <input type="text" id="proprietario" placeholder="Proprietário">
+                <input type="text" id="contratante-name" placeholder="Proprietário">
             </div>
             <div class="input-group">
-                <input type="text" id="cnpj" placeholder="CNPJ">
+                <input type="text" id="contratante-cnpj" placeholder="CNPJ">
             </div>
             <div class="input-group">
-                <input type="tel" id="telefone" placeholder="Telefone">
+                <input type="tel" id="contratante-telefone" placeholder="Telefone">
             </div>
             <div class="input-group">
-                <input type="email" id="email-contratante" placeholder="E-mail">
+                <input type="email" id="contratante-email" placeholder="E-mail">
             </div>
             <div class="input-group">
-                <input type="password" id="senha-contratante" placeholder="Crie uma senha">
+                <input type="password" id="contratante-senha" placeholder="Crie uma senha">
             </div>
             <div class="buttons-group">
                 <a href="#" class="btn" id="btn-finalizar-contratante">FINALIZAR</a>
