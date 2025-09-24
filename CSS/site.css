@@ -1,7 +1,6 @@
 body{
-    /* Fundo com a imagem */
-    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
-    background-size: contain;                                             /*para preencher a tela toda sem distorcer */
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;       /* fundo com a imagemm*/
+    background-size: contain;                                                             /*para preencher a tela toda sem distorcer */
 
     color: rgb(6, 6, 113);
     background-color: white;
@@ -29,15 +28,14 @@ nav ul li:last-child {
 }
 .retangulo{
     width: 70%;
-    height: 300px;                                           /* Define a altura do retângulo */
-    background-color: rgba(20, 17, 104, 0.3);             /* Cor de fundo cinza clara */
-    border: 1px solid #ccc;                              /* Borda sólida de 1 pixel e cor cinza */
-    padding: 40px;                                        /* Espaçamento interno para o conteúdo */
-    margin: 40px auto;                                   /* Centraliza o retângulo horizontalmente e dá espaçamento */
-    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);          /* Sombra suave para dar um efeito 3D */
-    background: rgba(255, 255, 255, 0.98);            /* fundo transparente */
-    backdrop-filter: blur(5px);                       /* desfoca só o que está atrás */
-   -webkit-backdrop-filter: blur(10px);               /* compatibilidade com Safari */
+    height: 300px;                                                                       /* Define a altura do retângulo */
+    background-color: rgba(20, 17, 104, 0.3);                                       /* Cor de fundo cinza clara */
+    border: 1px solid #ccc;                                                             /* Borda sólida de 1 pixel e cor cinza */
+    padding: 40px;                                                                        /* Centraliza o retângulo horizontalmente e dá espaçamento */
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);                                             /* Sombra suave para dar um efeito 3D */
+    background: rgba(255, 255, 255, 0.98);                                            /* fundo transparente */
+    backdrop-filter: blur(5px);                                                           /* desfoca só o que está atrás */
+   -webkit-backdrop-filter: blur(10px);                                                     /* compatibilidade com Safari */
     
     /*flexbox*/
     display: flex;
@@ -72,11 +70,11 @@ h3 {
 
 /* 1. O contentor que vai alinhar os dois retângulos */
 .container-duplo {
-    display: flex;                /* Ativa o layout flexível, colocando os itens lado a lado */
-    justify-content: center;      /* Centraliza os retângulos na página */
-    gap: 30px;                    /* Cria um espaço de 30px ENTRE os dois retângulos */
-    width: 90%;                   /* A mesma largura do retângulo de cima */
-    margin: 40px auto;            /* Centraliza o container e dá espaço vertical */
+    display: flex;                                                 /* Ativa o layout flexível, colocando os itens lado a lado */
+    justify-content: center;                                      /* Centraliza os retângulos na página */
+    gap: 30px;                                                    /* Cria um espaço de 30px ENTRE os dois retângulos */
+    width: 90%;                                                   /* A mesma largura do retângulo de cima */
+    margin: 40px auto;                                              /* Centraliza o container e dá espaço vertical */
 }
 
 /* 2. O estilo para cada um dos retângulos menores */
@@ -88,19 +86,17 @@ h3 {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(10px);
     
-    /* Configurações específicas para os retângulos menores */
-    flex: 1;                      /* Faz com que cada retângulo ocupe o espaço disponível igualmente */
-    padding: 30px;                /* Espaçamento interno */
-    height: 250px;                /* Uma altura fixa, ajuste se precisar */
-
-    /* --- ALTERAÇÕES AQUI --- */
-    display: flex;                /* Itens lado a lado */
-    align-items: center;          /* Alinha verticalmente no centro */
-    gap: 40px;                    /* Espaço entre o texto e a imagem */
+    /* retângulos menores */
+    flex: 1;                                                               /* Faz com que cada retângulo ocupe o espaço disponível igualmente */
+    padding: 30px;                                                        /* Espaçamento interno */
+    height: 250px;              
+    display: flex;                                                            /* Itens lado a lado */
+    align-items: center;                                                      /* Alinha verticalmente */
+    gap: 40px;                                                                  /* Espaço entre o texto e a imagem */
 
 }
 
-/* 3. Estilo para os títulos dentro dos novos retângulos (opcional) */
+/* 3. Estilo para os títulos dentro dos novos retângulos */
 .retangulo-metade h4 {
     font-family: 'Montserrat', sans-serif;
     color: #050585;

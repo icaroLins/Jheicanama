@@ -68,12 +68,29 @@ document.addEventListener('DOMContentLoaded', function() {
         forgotPasswordLink.classList.remove('hidden'); //esconde "esqueci senha"
     });
 
-    // Adicionado evento para o botão 'Contratante' da tela de login
-// MUDANÇA AQUI: Corrigido o nome da variável de evento
+    // --- LÓGICA PARA ALTERNAR O TIPO DE LOGIN (CPF vs CNPJ) ---
 btnContratanteLogin.addEventListener('click', function(event) {
     event.preventDefault();
-    // Quando o contratante clica, o placeholder deve ser CNPJ
-    inputIdentificador.placeholder = "CNPJ/EMAIL";
+
+    // Verifica qual é o ID ATUAL do botão de login para saber o estado
+    if (btnLogar.id === 'btn-logar') {
+        // Se o ID é o padrão, muda para o modo CONTRATANTE.
+        
+        // 1. Altera o placeholder
+        inputIdentificador.placeholder = "CNPJ/EMAIL";
+        
+        // 2. Altera o ID do botão "Logar"
+        btnLogar.id = 'btn-logar-contratante';
+
+    } else {
+        // Se já está no modo CONTRATANTE, volta para o modo PESSOA FÍSICA.
+        
+        // 1. Restaura o placeholder original
+        inputIdentificador.placeholder = "CPF/EMAIL";
+        
+        // 2. Restaura o ID original do botão "Logar"
+        btnLogar.id = 'btn-logar';
+    }
 });
 
 });
