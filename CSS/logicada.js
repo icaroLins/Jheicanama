@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnCadastrar = document.getElementById('btn-cadastrar'); // Vai para o cadastro de usuário
     const btnVoltar = document.getElementById('btn-voltar'); // Volta do cad. usuário para o login
 
-    const forgotPasswordLink = document.querySelector('.forgot-password-link');
+//     const forgotPasswordLink = document.querySelector('.forgot-password-link');
+//     if (forgotPasswordLink) {
+//     forgotPasswordLink.classList.add('hidden');
+// }
     
     // Botões do formulário de cadastro de usuário
      const btnContratante = document.querySelector('.btn-contratante'); // Vai para o cadastro de contratante
@@ -20,8 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Botões da tela de login (novos e/ou com IDs específicos para o problema)
     const btnContratanteLogin = document.getElementById('btn-contratante-login'); // Esta linha foi ADICIONADA.
-    const btnLogar = document.getElementById('btn-logar'); // Esta linha foi ADICIONADA.
-  
+
     
     const inputIdentificador = document.getElementById('login-identificador');///// troca///
     
@@ -167,4 +169,31 @@ btnLogin.addEventListener('click', function(e) {
         alert("Erro ao tentar logar. Veja o console.");
     });
 });
+
+btn.addEventListener('click', function(e) {
+    e.preventDefault();
+        const identificador = inputIdentificador.value;
+        const senha = loginBox.querySelector('input[type="password"]').value;
+
+        fetch(`http://localhost:8080/contratantes/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: identificador, senha })
+        })
+        .then(async res => {
+            if (res.ok) {
+                const token = await res.text();
+                alert("Login realizado com sucesso!");
+                console.log("Token:", token);
+            } else {
+                const msg = await res.text();
+                alert("Erro no login: " + msg);
+            }
+        })
+        .catch(err => {
+            console.error("Erro:", err);
+            alert("Erro ao tentar logar. Veja o console.");
+        });
+});
+
 });
