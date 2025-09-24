@@ -74,9 +74,12 @@ body {
     width: 50%; /* Ocupa a outra metade */
     border-left: 2px solid black;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative; /* Crucial para posicionar os forms dentro dele */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* --- CAIXAS DE LOGIN E CADASTRO --- */
@@ -89,7 +92,8 @@ body {
     width: 300px; /* Aumentei um pouco para caber melhor */
     box-sizing: border-box;
     box-shadow: 2px 2px 0 0 black;
-    position: absolute; /* Permite que fiquem no mesmo lugar, um em cima do outro */
+    position: relative; /* Permite que fiquem no mesmo lugar, um em cima do outro */
+    margin: 0 auto;
 }
 
 .login-box h3 {
@@ -160,9 +164,14 @@ body {
     gap: 10px;     /* Cria um espaço de 10px entre os botões */
 }
 
-/* Opcional: Estilo para o novo botão "Contratante" */
+/* cor para o novo botão "Contratante" */
 .btn-contratante {
-    background-color: rgb(5, 5, 113); /* Uma cor laranja para diferenciar */
+    background-color: rgb(5, 5, 113); /* Uma cor  para diferenciar */
+    color: white;
+    font-weight: bold;
+}
+.btn-logar {
+    background-color: rgb(5, 5, 113); /* Uma cor para diferenciar */
     color: white;
     font-weight: bold;
 }
