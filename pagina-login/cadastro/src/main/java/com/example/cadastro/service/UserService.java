@@ -1,8 +1,9 @@
 package com.example.cadastro.service;
 import com.example.cadastro.model.Candidate;
-import com.example.cadastro.model.User;
 import com.example.cadastro.repository.UserRepository;
 import com.example.cadastro.security.JwtUtil;
+import com.example.cadastro.validator.ValidatorCpf;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,15 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEnconder;
 
-    public User register(Candidate user){
+    public Candidate register(Candidate user){
+
+        String cpfLimpo = user.getCpf().replaceAll("\\D", "");
+        user.setCpf(cpfLimpo);
+
+        if(!ValidatorCpf.isValid(user.getCpf())){
+            throw new RuntimeException("CPF invalido!");
+        }
+
         if(userRepository.findByCpf(user.getCpf()) != null){
             throw new RuntimeException("CPF ja cadastrado!");
         }
@@ -30,16 +39,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User searchByEmail(String email){
+    public Candidate searchByEmail(String email){
         return userRepository.findByEmail(email);
     }
 
-    public User searchByCPF(String cpf){
+    public Candidate searchByCPF(String cpf){
+        cpf = cpf.replaceAll("[^\\d]", "");
         return userRepository.findByCpf(cpf);
     }
 
     public boolean validarLogin(String email, String senha){
-        User user = userRepository.findByEmail(email);
+        Candidate user = userRepository.findByEmail(email);
 
         if(user == null){
             return false;
@@ -55,5 +65,7 @@ public class UserService {
     public String gerarToken(Candidate user){
         return jwtUtil.generateToken(user.getCpf());
     }
+
+    
    
 }

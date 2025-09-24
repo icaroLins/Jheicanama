@@ -1,8 +1,6 @@
 package com.example.cadastro.controller;
 
-
-import com.example.cadastro.model.User;
-import com.example.cadastro.repository.UserRepository;
+import com.example.cadastro.model.Candidate;
 import com.example.cadastro.service.UserService;
 import com.example.cadastro.security.JwtUtil;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,10 +27,11 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> cadastrar(@RequestBody User usuario){
+    public ResponseEntity<?> cadastrar(@RequestBody Candidate usuario){
         try{
-            User novo = userService.register(usuario);
+            Candidate novo = userService.register(usuario);
             return ResponseEntity.ok(novo);
+            
         }catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -43,7 +42,7 @@ public class AuthController {
         boolean valido = userService.validarLogin(email, senha);
         
         if (valido) {
-            User user = userService.searchByEmail(email);
+            Candidate user = userService.searchByEmail(email);
             String token = jwtUtil.generateToken(user.getCpf());
             return ResponseEntity.ok(token);
         }
@@ -52,7 +51,8 @@ public class AuthController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<?> searchByCpf(@PathVariable String cpf){
-        User user = userService.searchByCPF(cpf);
+        cpf = cpf.replaceAll("[^\\d]","");
+        Candidate user = userService.searchByCPF(cpf);
         if(user != null){
             return ResponseEntity.ok(user);
         }
@@ -68,7 +68,8 @@ public class AuthController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
         String cpf = jwtUtil.extractCpf(token);
-        User user = userService.searchByCPF(cpf);
+        cpf = cpf.replaceAll("[^\\d]", "");
+        Candidate user = userService.searchByCPF(cpf);
 
         return ResponseEntity.ok(user);
     }
