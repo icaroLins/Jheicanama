@@ -118,7 +118,7 @@ h3 {
 
 .retangulo-metade img {
     width: 200px;                 /* Largura fixa para a imagem */
-    height: 170px;                /* Altura fixa */
+    height: 170px;                /* Altura fixa*/
     object-fit: cover;
     border-radius: 10px;
 }
