@@ -38,11 +38,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
-        boolean valido = userService.validarLogin(email, senha);
-        
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        boolean valido = userService.validarLogin(request.getIdentificador(), request.getSenha());
+        Candidate user;
+
         if (valido) {
-            Candidate user = userService.searchByEmail(email);
+            if(request.getIdentificador().matches("\\d+")){
+                user = userService.searchByCPF(request.getIdentificador());
+            }else{
+                user = userService.searchByEmail(request.getIdentificador());
+            }
             String token = jwtUtil.generateToken(user.getCpf());
             return ResponseEntity.ok(token);
         }
