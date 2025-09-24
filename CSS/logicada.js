@@ -118,11 +118,13 @@ document.getElementById("btn-finalizar-candidato").addEventListener("click", fun
 btnLogin.addEventListener('click', function(e) {
     e.preventDefault();
 
-    const email = loginBox.querySelector('input[type="text"]').value;
+    const identificador = loginBox.querySelector('input[type="text"]').value;
     const senha = loginBox.querySelector('input[type="password"]').value;
 
-    fetch(`http://localhost:8080/usuarios/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
-        method: "POST"
+    fetch(`http://localhost:8080/usuarios/login`, {
+         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identificador, senha })
     })
     .then(async res => {
         if (res.ok) {
