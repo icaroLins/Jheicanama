@@ -1,0 +1,97 @@
+body {
+    /* Fundo com sua imagem, mas mais sutil e sem o overlay escuro direto no body */
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
+    background-size: contain; /* Para preencher a tela */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 20px; /* Adiciona um respiro para a borda externa */
+    box-sizing: border-box; /* Garante que padding não adicione largura total */
+}
+
+
+.profale-conteiner {
+    background-color: rgba(255, 255, 255, 0.5);           /* Fundo branco semi-transparente */
+    padding: 30px;
+    border-radius: 15px; 
+    width: 380px; 
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);        /* Sombra mais suave */
+    border: 3px solid rgba(33, 3, 83, 0.5);            /* Borda preta um pouco mais fina */
+    color: #333; 
+    position: relative;
+
+    backdrop-filter: blur(8px);                            /* Aplica o desfoque ao fundo atrás do container */
+    -webkit-backdrop-filter: blur(8px); 
+}
+
+/* Título */
+.profale-conteiner h2 {
+    margin: 0;
+    margin-bottom: 20px;
+    color: #333; 
+    font-size: 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Borda inferior mais sutil */
+    padding-bottom: 10px;
+}
+
+/* Foto do perfil */
+.profile-pic {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #000; /* Borda preta na foto */
+}
+
+.profile-pic button {
+    margin-top: 15px; /* Mais espaço para o botão */
+    padding: 8px 18px; /* Botão um pouco maior */
+    border: none;
+    background: #36058b;
+    color: white;
+    border-radius: 18px; /* Bordas mais arredondadas para o botão */
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.3s ease; /* Transição suave para hover */
+}
+
+.profile-pic button:hover {
+    background: #0f056f;
+}
+
+/* Informações do usuário */
+.user-info {
+    text-align: left;
+    margin-top: 25px; /* Mais espaço acima */
+}
+
+.user-info p {
+    margin: 15px 0; /* Mais espaço entre as informações */
+    font-size: 16px;
+    color: #444; /* Cor de texto das infos */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Borda inferior mais clara */
+    padding-bottom: 8px;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(144, 164, 239, 0.2); 
+    z-index: -1; /* Fica atrás do conteúdo */
+}
