@@ -1,23 +1,35 @@
-    package com.example.cadastro.security;
+package com.example.cadastro.security;
 
-    import jakarta.servlet.FilterChain;
-    import jakarta.servlet.ServletException;
-    import jakarta.servlet.http.HttpServletRequest;
-    import jakarta.servlet.http.HttpServletResponse;
-    import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.web.filter.OncePerRequestFilter;
-    import com.example.cadastro.service.CustomUserDetailsService;
-    import java.io.IOException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-    
-   public class JwtAuthenticationFilter extends OncePerRequestFilter {
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.example.cadastro.service.CustomUserDetailsService;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService){
+    // Endpoints públicos
+    private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
+            "/usuarios/login",
+            "/usuarios/register",
+            "/contratantes/login",
+            "/contratantes/register"
+    );
+
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
@@ -27,28 +39,40 @@
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String originalPath = request.getRequestURI();
 
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
-            String token = authHeader.substring(7);
+        // Remove query string, se houver
+        int queryIndex = originalPath.indexOf("?");
+        String normalizedPath = (queryIndex != -1) ? originalPath.substring(0, queryIndex) : originalPath;
 
-            if(jwtUtil.validateToken(token)){
-                String cpf = jwtUtil.extractCpf(token);
+        // Normaliza barra final para comparação
+        String normalizedPathWithSlash = normalizedPath.endsWith("/") ? normalizedPath : normalizedPath + "/";
 
-                System.out.println("Filtro JWT chamado para: " + cpf);
+        boolean isPublic = PUBLIC_ENDPOINTS.stream()
+                .anyMatch(p -> (p + "/").equalsIgnoreCase(normalizedPathWithSlash));
 
-                // Usa o serviço para carregar o usuário
-                UserDetails userDetails = userDetailsService.loadUserByUsername(cpf);
+        if (!isPublic) {
+            // Endpoints privados → autenticação JWT
+            String authHeader = request.getHeader("Authorization");
 
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities()
-                        );
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                String token = authHeader.substring(7);
 
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                if (jwtUtil.validateToken(token)) {
+                    String identifier = jwtUtil.extractIdentifier(token);
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(identifier);
+
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities()
+                            );
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+            // Se não houver token, Spring Security tratará 401 automaticamente
         }
 
+        // Continua a cadeia de filtros
         filterChain.doFilter(request, response);
     }
 }

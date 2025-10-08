@@ -6,6 +6,9 @@ import com.example.cadastro.security.JwtUtil;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,13 +41,21 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
-        boolean valido = userService.validarLogin(email, senha);
-        
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        boolean valido = userService.validarLogin(request.getIdentificador(), request.getSenha());
+        Candidate user;
+
         if (valido) {
-            Candidate user = userService.searchByEmail(email);
+            if(request.getIdentificador().matches("\\d+")){
+                user = userService.searchByCPF(request.getIdentificador());
+            }else{
+                user = userService.searchByEmail(request.getIdentificador());
+            }
             String token = jwtUtil.generateToken(user.getCpf());
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(Map.of(
+                "token", token,
+                "tipo", "candidate"
+            ));
         }
         return ResponseEntity.status(401).body("Email ou senha inválidos");
     }
@@ -67,7 +78,7 @@ public class AuthController {
         if(!jwtUtil.validateToken(token)){
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
-        String cpf = jwtUtil.extractCpf(token);
+        String cpf = jwtUtil.extractIdentifier(token);
         cpf = cpf.replaceAll("[^\\d]", "");
         Candidate user = userService.searchByCPF(cpf);
 

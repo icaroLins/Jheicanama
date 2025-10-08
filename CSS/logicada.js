@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnVoltar = document.getElementById('btn-voltar'); // Volta do cad. usuário para o login
 
     const forgotPasswordLink = document.querySelector('.forgot-password-link');
+    if (forgotPasswordLink) {
+    forgotPasswordLink.classList.add('hidden');
+}
     
     // Botões do formulário de cadastro de usuário
      const btnContratante = document.querySelector('.btn-contratante'); // Vai para o cadastro de contratante
@@ -20,13 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Botões da tela de login (novos e/ou com IDs específicos para o problema)
     const btnContratanteLogin = document.getElementById('btn-contratante-login'); // Esta linha foi ADICIONADA.
-    const btnLogar = document.getElementById('btn-logar'); // Esta linha foi ADICIONADA.
-  
+
     
     const inputIdentificador = document.getElementById('login-identificador');///// troca///
     
 
     const btnLogin = document.getElementById('btn-login');
+    const btnLoginContratante = document.getElementById('btn-login-contratante');
+
+    let modoContratante = false;
 
     // --- FUNÇÕES DE CONTROLE ---
 
@@ -72,40 +77,21 @@ document.addEventListener('DOMContentLoaded', function() {
         forgotPasswordLink.classList.remove('hidden'); //esconde "esqueci senha"
     });
 
-<<<<<<< HEAD
-    // --- LÓGICA PARA ALTERNAR O TIPO DE LOGIN (CPF vs CNPJ) ---
-=======
 
     // Adicionado evento para o botão 'Contratante' da tela de login
 // MUDANÇA AQUI: Corrigido o nome da variável de evento
->>>>>>> 440b2d8d91f8ec0cc9bad98dca204c657e633864
-btnContratanteLogin.addEventListener('click', function(event) {
-    event.preventDefault();
+btnContratanteLogin.addEventListener('click', function(e) {
+    e.preventDefault();
+    modoContratante = !modoContratante; // alterna estado
 
-    // Verifica qual é o ID ATUAL do botão de login para saber o estado
-    if (btnLogar.id === 'btn-logar') {
-        // Se o ID é o padrão, muda para o modo CONTRATANTE.
-        
-        // 1. Altera o placeholder
+    if (modoContratante) {
         inputIdentificador.placeholder = "CNPJ/EMAIL";
-        
-        // 2. Altera o ID do botão "Logar"
-        btnLogar.id = 'btn-logar-contratante';
-
+        btnLogin.textContent = "Logar"; // só muda o texto do botão
     } else {
-        // Se já está no modo CONTRATANTE, volta para o modo PESSOA FÍSICA.
-        
-        // 1. Restaura o placeholder original
         inputIdentificador.placeholder = "CPF/EMAIL";
-        
-        // 2. Restaura o ID original do botão "Logar"
-        btnLogar.id = 'btn-logar';
+        btnLogin.textContent = "Logar";
     }
 });
-
-<<<<<<< HEAD
-});
-=======
 
     // Seleciona o formulário de contratante
 document.getElementById("btn-finalizar-contratante").addEventListener("click", function (e) {
@@ -164,31 +150,53 @@ document.getElementById("btn-finalizar-candidato").addEventListener("click", fun
         console.error("Erro:", err);
         alert("Erro ao cadastrar candidato. Veja o console.");
     });
-});
+    });
 
-btnLogin.addEventListener('click', function(e) {
+    btnLogin.addEventListener('click', function(e) {
     e.preventDefault();
-
-    const email = loginBox.querySelector('input[type="text"]').value;
+    const identificador = inputIdentificador.value;
     const senha = loginBox.querySelector('input[type="password"]').value;
 
-    fetch(`http://localhost:8080/usuarios/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
-        method: "POST"
-    })
-    .then(async res => {
-        if (res.ok) {
-            const token = await res.text(); // o backend retorna o token como texto
-            alert("Login realizado com sucesso!");
-            console.log("Token:", token);
-        } else {
-            const msg = await res.text();
-            alert("Erro no login: " + msg);
-        }
-    })
-    .catch(err => {
-        console.error("Erro:", err);
-        alert("Erro ao tentar logar. Veja o console.");
-    });
+    if (modoContratante) {
+        // Login contratante
+        fetch("http://localhost:8080/contratantes/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ identificador, senha })
+        })
+        .then(async res => {
+            if (res.ok) {
+                const token = await res.text();
+                alert("Login contratante realizado com sucesso!");
+                localStorage.setItem("token", token);
+            } else {
+                const msg = await res.text();
+                alert("Erro no login contratante: " + msg);
+            }
+        })
+        .catch(err => console.error("Erro:", err));
+    } else {
+        // Login usuário
+        fetch("http://localhost:8080/usuarios/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ identificador, senha })
+        })
+        .then(async res => {
+            if (res.ok) {
+                const token = await res.text();
+                alert("Login usuário realizado com sucesso!");
+                console.log("Token:", token);
+            } else {
+                const msg = await res.text();
+                alert("Erro no login usuário: " + msg);
+            }
+        })
+        .catch(err => console.error("Erro:", err));
+    }
 });
+
+
+
+
 });
->>>>>>> 440b2d8d91f8ec0cc9bad98dca204c657e633864

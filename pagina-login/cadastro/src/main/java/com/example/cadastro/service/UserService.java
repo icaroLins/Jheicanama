@@ -48,8 +48,15 @@ public class UserService {
         return userRepository.findByCpf(cpf);
     }
 
-    public boolean validarLogin(String email, String senha){
-        Candidate user = userRepository.findByEmail(email);
+    public boolean validarLogin(String identificador, String senha){
+        Candidate user;
+
+        if(identificador.matches("\\d+")){
+            String cpfLimpo = identificador.replaceAll("[^\\d]", "");
+            user = userRepository.findByCpf(cpfLimpo);
+        }else{
+            user = userRepository.findByEmail(identificador);
+        }
 
         if(user == null){
             return false;
