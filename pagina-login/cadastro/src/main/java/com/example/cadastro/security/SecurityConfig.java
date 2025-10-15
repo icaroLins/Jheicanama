@@ -32,10 +32,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/usuarios/login",
-                    "/usuarios/register",
-                    "/contratantes/login",
-                    "/contratantes/register"
+                     "/usuarios/login",
+                                "/usuarios/register",
+                                "/usuarios/me",
+                                "/contratantes/login",
+                                "/contratantes/register",
+                                "/contratantes/me"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
