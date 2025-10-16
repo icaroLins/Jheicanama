@@ -59,7 +59,7 @@ body {
     margin-top: 15px; /* Mais espaço para o botão */
     padding: 8px 18px; /* Botão um pouco maior */
     border: none;
-    background: #36058b;
+    background: rgb(5, 5, 133);
     color: white;
     border-radius: 18px; /* Bordas mais arredondadas para o botão */
     cursor: pointer;
@@ -68,7 +68,7 @@ body {
 }
 
 .profile-pic button:hover {
-    background: #0f056f;
+    background:  #36058b;
 }
 
 /* Informações do usuário */

@@ -2,7 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1- API ---
     
-    const API_PERFIL_URL = ''; 
+    const API_PERFIL_URL = 'http://localhost:8080/contratantes/me'; 
+    const token = localStorage.getItem('token');
+
+    if(!token){
+        alert("Você precisa estar logado!");
+        window.location.href = 'login.html';
+        return;
+    }
+
+    console.log("Token enviado no fetch:", token);
 
     
     // --- 2. FUNÇÃO PRINCIPAL: RECEBER DADOS E INSERIR NO HTML ---
@@ -11,15 +20,35 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const resposta = await fetch(API_PERFIL_URL, {
                 method: 'GET',
-                // token aqui
+                 headers: {
+                    'Authorization': `Bearer ${token}`, // Envia o token
+                    'Content-Type': 'application/json'
+                }// token aqui
                
             });
+
+            if (resposta.status === 401) {
+                alert('Sessão expirada. Faça login novamente.');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (resposta.status === 403) {
+                alert('Você não tem permissão para acessar este recurso.');
+                return;
+            }
 
             if (!resposta.ok) {
                 throw new Error(`Erro de rede ou servidor: ${resposta.status}`);
             }
 
-            const dadosDaEmpresa = await resposta.json();
+            let dadosDaEmpresa = {};
+            try {
+                dadosDaEmpresa = await resposta.json();
+            } catch (e) {
+                console.warn("Resposta vazia ou inválida, usando objeto vazio.");
+            }
 
             // Chama a função para o HTML
             preencherPerfil(dadosDaEmpresa);
@@ -35,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // dados do nome, email, cnpj, e telefone.
     function preencherPerfil(dados) {
         // Atualiza as informações de texto
-        document.getElementById('infoNome').textContent = dados.nome || 'Não informado';
+        document.getElementById('infoNome').textContent = dados.name || 'Não informado';
         document.getElementById('infoEmail').textContent = dados.email || 'Não informado';
         
         // CNPJ e Telefone

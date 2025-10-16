@@ -43,8 +43,8 @@ public class JobController {
             return ResponseEntity.status(401).body("Token invalido ou expirado!");
         }
 
-        String cnpj = jwtUtil.extractIdentifier(token);
-        Contractor contractor = contractorService.searchByCnpj(cnpj);
+        String email = jwtUtil.extractIdentifier(token);
+        Contractor contractor = contractorService.searchByEmail(email);
 
         job.setContractor(contractor);
 
@@ -64,8 +64,8 @@ public class JobController {
             return ResponseEntity.status(401).body("Token invalido ou expirado");
         }
 
-        String cnpj = jwtUtil.extractIdentifier(token);
-        Contractor contractor = contractorService.searchByCnpj(cnpj);
+        String email = jwtUtil.extractIdentifier(token);
+        Contractor contractor = contractorService.searchByEmail(email);
 
         List<JobVacancies> vagas = jobService.getJobByContractor(contractor.getId());
         return ResponseEntity.ok(vagas);

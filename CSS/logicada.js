@@ -171,7 +171,7 @@ document.getElementById("btn-finalizar-candidato").addEventListener("click", fun
                 localStorage.setItem("token", token);
                 alert("Login contratante realizado com sucesso!");
                 localStorage.setItem("token", token);
-                window.location.href = "http://127.0.0.1:5500/CSS/perfil2.html";
+                window.location.href = "http://127.0.0.1:5500/CSS/vagas.html";
             } else {
                 const msg = await res.text();
                 alert("Erro no login contratante: " + msg);
