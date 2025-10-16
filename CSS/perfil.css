@@ -14,28 +14,31 @@ body {
 
 
 .profale-conteiner {
-    background-color: rgba(255, 255, 255, 0.5);           /* Fundo branco semi-transparente */
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 30px;
-    border-radius: 15px; 
-    width: 380px; 
+    border-radius: 15px;
+    width: 380px;
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);        /* Sombra mais suave */
-    border: 3px solid rgba(33, 3, 83, 0.5);            /* Borda preta um pouco mais fina */
-    color: #333; 
-    position: relative;
+    
+    /* EFEITO FALSO 3D - CONTAINER */
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+    border: 1px solid rgb(0, 0, 0);
+    /* FIM EFEITO FALSO 3D */
 
-    backdrop-filter: blur(8px);                            /* Aplica o desfoque ao fundo atrás do container */
-    -webkit-backdrop-filter: blur(8px); 
+    color: #333;
+    position: relative;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 /* Título */
 .profale-conteiner h2 {
     margin: 0;
     margin-bottom: 20px;
-    color: #333; 
+    color: #333;
     font-size: 24px;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Borda inferior mais sutil */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 10px;
 }
 
@@ -52,46 +55,68 @@ body {
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #000; /* Borda preta na foto */
+    border: 2px solid #000;
 }
 
 .profile-pic button {
-    margin-top: 15px; /* Mais espaço para o botão */
-    padding: 8px 18px; /* Botão um pouco maior */
-    border: none;
+    margin-top: 15px;
+    padding: 8px 18px;
+    
+    /* EFEITO FALSO 3D - BOTÃO (Estilo 'Logar') */
+    border: 2px solid black; 
+    box-shadow: 2px 2px 0 0 black; 
+    /* FIM EFEITO FALSO 3D */
+    
     background: rgb(5, 5, 133);
     color: white;
-    border-radius: 18px; /* Bordas mais arredondadas para o botão */
+    border-radius: 18px;
     cursor: pointer;
     font-size: 15px;
-    transition: background 0.3s ease; /* Transição suave para hover */
+    transition: background 0.3s ease;
 }
 
 .profile-pic button:hover {
-    background:  #36058b;
+    background: #36058b;
 }
 
 /* Informações do usuário */
 .user-info {
     text-align: left;
-    margin-top: 25px; /* Mais espaço acima */
+    margin-top: 25px;
 }
 
 .user-info p {
-    margin: 15px 0; /* Mais espaço entre as informações */
+    margin: 15px 0;
     font-size: 16px;
-    color: #444; /* Cor de texto das infos */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Borda inferior mais clara */
+    color: #444;
+    border-bottom: 1px solid rgba(33, 3, 83, 0.5);
     padding-bottom: 8px;
 }
 
-body::before {
-    content: '';
+.btn-back-profile {
+    /* Estilo Falso 3D e Cor do botão 'Logar' (MANTIDO) */
+    background: rgb(5, 5, 133); 
+    color: white;
+    font-weight: bold;
+    border: 2px solid black; 
+    box-shadow: 2px 2px 0 0 black;
+    
+    /* Forma e Tamanho (AJUSTADO) */
+    text-decoration: none;
+    text-align: center;
+    padding: 6px 10px; /* Diminuído o padding vertical e horizontal */
+    width: 80px; /* Diminuída a largura do botão (antes 100px) */
+    border-radius: 10px 15px 10px 15px; 
+    cursor: pointer;
+    font-size: 14px; /* Levemente diminuída a fonte */
+    
+    /* POSICIONAMENTO ABSOLUTO NO CANTO INFERIOR DIREITO (AJUSTADO) */
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(144, 164, 239, 0.2); 
-    z-index: -1; /* Fica atrás do conteúdo */
+    right: 10px; /* Aproximado da borda direita (antes 20px) */
+    bottom: 10px; /* Aproximado da borda inferior (antes 20px) */
+    z-index: 10; 
+}
+
+.btn-back-profile:hover {
+    background: #36058b; 
 }
