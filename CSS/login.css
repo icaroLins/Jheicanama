@@ -38,7 +38,7 @@ body {
 
 .left-panel h1 { /*  texto*/
     font-size: 35px;
-    margin-top: 100px;
+    margin-top: 5px;
     font-weight: bold;
 }
 
@@ -57,17 +57,6 @@ body {
     margin-top: 20px;
 }
 
-.social-links {
-    margin-top: auto; /* Empurra para a parte de baixo */
-    padding-top: 20px;
-}
-
-.social-links a {
-    color: black;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-}
 
 /* --- PAINEL DIREITO (ÁREA DE LOGIN/CADASTRO) --- */
 .right-panel {
@@ -174,4 +163,17 @@ body {
     background-color: rgb(5, 5, 113); /* Uma cor para diferenciar */
     color: white;
     font-weight: bold;
+}
+
+.btn-voltar-principal {
+    background-color: rgb(5, 5, 113); /* Cor de fundo do botão 'Logar' */
+    color: white; /* Cor do texto */
+    font-weight: bold;
+    width: 100px; /* Largura menor e fixa para um botão de canto */
+    padding: 8px 10px; /* Ajuste o padding para não ficar muito alto */
+
+    /* POSICIONAMENTO EXATO NO CANTO INFERIOR ESQUERDO */
+    position: absolute; 
+    bottom: 20px; /* Distância da borda inferior */
+    left: 20px; /* Distância da borda esquerda */
 }
