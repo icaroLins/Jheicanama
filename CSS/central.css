@@ -35,12 +35,24 @@ body {
     margin: 0 auto;
 }
 
-/* Estilos de link aplicado ao texto e ao link LOGIN */
-.header-list a, .logo-text {
+
+
+/* 1. Estilos base para todos os textos do cabeçalho - AGORA INCLUI FONT-WEIGHT BOLD */
+.header-list a, .logo-text, .menu-titulo-colapsavel {
     font-family: 'Verdana', sans-serif;
-    font-size: 25px;
+    font-size: 25px; 
     color: rgb(5, 5, 113);
     text-decoration: none;
+    font-weight: bold; /* Adicionado para igualar o visual do h2 */
+    transition: all 0.2s ease-out;
+}
+
+/* 2. NOVA CLASSE: Estilo de título sublinhado (semelhante ao h2) */
+.header-item-style {
+    display: inline-block; /* Permite que a borda se ajuste ao texto */
+    padding-bottom: 5px; /* Espaçamento entre o texto e a linha */
+    border-bottom: 3px solid rgba(5, 5, 133, 0.8); /* Borda sólida */
+    line-height: 1; /* Ajuda no alinhamento vertical dentro do flexbox */
 }
 
 /* Garante que o texto FREELANCE não seja afetado pelo display flex dos LIs */
@@ -73,11 +85,8 @@ body {
 }
 
 /* Estilo do botão de clique MENU (inclui o icone-toggle) */
+/* Removida repetição de estilos já definidos na regra .header-list a, .logo-text, .menu-titulo-colapsavel */
 .menu-titulo-colapsavel {
-    font-family: 'Verdana', sans-serif;
-    font-size: 25px;
-    color: rgb(5, 5, 113);
-    text-decoration: none;
     cursor: pointer;
     user-select: none;
     display: flex;
@@ -132,6 +141,7 @@ body {
     font-size: 16px; 
     color: #444;
     transition: background-color 0.2s;
+    font-weight: normal; /* Garante que o dropdown não fique em negrito */
 }
 
 .menu-dropdown-header a:hover {
