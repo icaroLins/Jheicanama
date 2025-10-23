@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 alert('Vaga salva com sucesso!');
                 form.reset();
+                window.location.href = 'http://127.0.0.1:5500/CSS/central.html';
             } else {
                 // Mostra o erro do servidor se existir
                 const msg = responseData.message || response.statusText || 'Erro desconhecido';

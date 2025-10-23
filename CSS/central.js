@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const listaVagasElement = document.getElementById('lista-de-vagas');
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        alert("Você precisa estar logado!");
+        window.location.href = 'login.html';
+        return;
+    }
     
     async function buscarVagas() {
         // Limpa o conteúdo inicial ("Carregando vagas...")
@@ -7,7 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Endpoint para buscar as vagas prontas
-            const response = await fetch('/buscar-vagas'); 
+            const response = await fetch('http://localhost:8080/vaga/minhas', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }); 
 
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
