@@ -1,18 +1,175 @@
 body {
-    /* Fundo com sua imagem, mas mais sutil e sem o overlay escuro direto no body */
+    /* Fundo com a imagem, sem alteração */
     background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
-    background-size: contain; /* Para preencher a tela */
+    background-size: contain; 
+
+    /* ATUALIZAÇÃO CRÍTICA PARA O CABEÇALHO FIXO: */
+    position: relative; 
+    min-height: 100vh; 
+    padding-top: 70px; /* RESERVA ESPAÇO para o cabeçalho fixo (ajuste se necessário) */
+    
+    /* Centralização do conteúdo principal (perfil) */
+    display: flex;
+    justify-content: center; /* Centraliza o container horizontalmente */
+    align-items: flex-start; /* Alinha o conteúdo principal ao topo, logo abaixo do padding-top */
+    
     margin: 0;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; 
-    padding: 20px; /* Adiciona um respiro para a borda externa */
-    box-sizing: border-box; /* Garante que padding não adicione largura total */
+    padding-bottom: 20px; /* Adiciona espaço na parte inferior, se a tela for pequena */
 }
 
+/* Removido body::before, pois não foi fornecido na última atualização */
+
+
+/* ============================================= */
+/* ESTILOS DO CABEÇALHO (HEADER) */
+/* ============================================= */
+
+/* O container do cabeçalho */
+.main-header {
+    width: 100%;
+    background-color: #ffffff; 
+    padding: 0; 
+    position: fixed; /* O ponto chave para o cabeçalho ficar no topo */
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* Seu estilo UL aplicado à lista dentro do cabeçalho */
+.header-list { 
+    display: flex;
+    justify-content: space-between; 
+    list-style-type: none;
+    padding: 15px 2.5%; 
+    width: 95%; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilos base para todos os textos do cabeçalho (FREELANCE, CRIAR, MENU) */
+.header-list a, .logo-text, .menu-titulo-colapsavel {
+    font-family: 'Verdana', sans-serif;
+    font-size: 25px; 
+    color: rgb(5, 5, 113);
+    text-decoration: none;
+    font-weight: bold; 
+    transition: all 0.2s ease-out;
+}
+
+/* Garante que o texto FREELANCE não seja afetado pelo display flex dos LIs */
+.logo-text {
+    display: block;
+}
+
+/* Estilo para a linha divisória (HR) */
+.header-separator {
+    border: 0;
+    height: 1px;
+    background-color: #ccc; 
+    margin: 0; 
+}
+
+/* Contêiner dos links à direita (MENU e CRIAR) */
+.nav-links-right {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+}
+
+/* ============================================= */
+/* ESTILOS DO MENU DROPDOWN */
+/* ============================================= */
+
+/* Contêiner do botão MENU */
+.menu-header-toggle {
+    position: relative; 
+}
+
+/* Estilo do botão de clique MENU (inclui o icone-toggle) */
+.menu-titulo-colapsavel {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%; 
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Estilo do ícone de toggle (seta) */
+.icone-toggle {
+    transition: transform 0.3s ease;
+}
+
+/* 2. Estilo do Dropdown quando está ABERTO (Contêiner das opções) */
+.menu-dropdown-header {
+    /* POSICIONAMENTO */
+    position: absolute;
+    top: 55px; /* Alinhado logo abaixo do cabeçalho */
+    right: 2.5%; /* Alinhado com a borda direita do conteúdo */
+    z-index: 99; 
+
+    /* Estilos visuais */
+    width: 250px; 
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+
+    /* PROPRIEDADES CRÍTICAS PARA A VISIBILIDADE E ANIMAÇÃO: */
+    max-height: 500px; 
+    padding: 10px; 
+    opacity: 1; 
+    overflow: hidden; 
+    
+    /* TRANSIÇÃO CRÍTICA PARA A ANIMAÇÃO */
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+/* Remove margem e padding do ul dentro do dropdown */
+.menu-dropdown-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo dos links dentro do dropdown */
+.menu-dropdown-header a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 16px; 
+    color: #444;
+    transition: background-color 0.2s;
+    font-weight: normal; 
+}
+
+.menu-dropdown-header a:hover {
+    background-color: #f0f0f0;
+    color: rgb(5, 5, 113);
+    font-weight: normal; 
+}
+
+/* 3. Ajuste final para o estado ESCONDIDO (Aplicado pelo JavaScript) */
+.menu-escondido {
+    max-height: 0 !important; 
+    padding: 0 !important;    
+    opacity: 0 !important;    
+    overflow: hidden !important; 
+    
+    /* Remove borda e sombra para esconder completamente */
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================= */
+/* ESTILOS DO CONTAINER DE PERFIL (MANTIDOS E AJUSTADOS) */
+/* ============================================= */
 .profale-conteiner {
+    /* Ajuste para criar espaço abaixo do cabeçalho fixo */
+    margin-top: 110px; 
+    
     background-color: rgba(255, 255, 255, 0.5); 
     
     /* EFEITO FALSO 3D - CONTAINER */
@@ -73,7 +230,7 @@ body {
 }
 
 .profile-pic button:hover {
-    background:  #36058b; /* Sua cor de hover original */
+    background: #36058b; /* Sua cor de hover original */
 }
 
 /* Informações do usuário*/
@@ -101,16 +258,16 @@ body {
     /* Forma e Tamanho (AJUSTADO) */
     text-decoration: none;
     text-align: center;
-    padding: 6px 10px; /* Diminuído o padding vertical e horizontal */
-    width: 80px; /* Diminuída a largura do botão (antes 100px) */
+    padding: 6px 10px; 
+    width: 80px; 
     border-radius: 10px 15px 10px 15px; 
     cursor: pointer;
-    font-size: 14px; /* Levemente diminuída a fonte */
+    font-size: 14px; 
     
     /* POSICIONAMENTO ABSOLUTO NO CANTO INFERIOR DIREITO (AJUSTADO) */
     position: absolute;
-    right: 10px; /* Aproximado da borda direita (antes 20px) */
-    bottom: 10px; /* Aproximado da borda inferior (antes 20px) */
+    right: 10px; 
+    bottom: 10px; 
     z-index: 10; 
 }
 
