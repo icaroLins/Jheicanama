@@ -73,6 +73,8 @@ public class UserService {
         return jwtUtil.generateToken(user.getCpf());
     }
 
-    
+    public Candidate save(Candidate user){
+        return userRepository.save(user);
+    }
    
 }

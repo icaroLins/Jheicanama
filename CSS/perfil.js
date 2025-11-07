@@ -66,8 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //document.getElementById('infoNascimento').textContent = dados.dataNascimento || 'Não informado';
         
         // Atualiza a foto se o URL for válido
-        if (dados.urlFoto) {
-            document.getElementById('fotoUsuario').src = dados.urlFoto;
+        if (dados.fotoPerfilUrl && fotoUsuario) {
+            fotoUsuario.src = "http://localhost:8080" + dados.fotoPerfilUrl;
+        } else {
+            fotoUsuario.src = "https://via.placeholder.com/150";
         }
 
         console.log("Perfil preenchido com dados da API.");
@@ -102,6 +104,45 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("");
         }
     });
+
+    inputFoto.addEventListener('change', async (event) => {
+
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                fotoUsuario.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            console.log("Iniciando upload da nova foto...");
+
+            const formData = new FormData();
+            formData.append("foto", file);
+
+            try {
+                const resposta = await fetch("http://localhost:8080/usuarios/upload_foto", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (resposta.ok) {
+                    alert("Foto enviada com sucesso!");
+                } else {
+                    const texto = await resposta.text();
+                    alert("Erro ao enviar foto: " + texto);
+                }
+
+            } catch (erro) {
+                console.error("Erro durante upload:", erro);
+                alert("Falha ao enviar foto. Veja o console para detalhes.");
+            }
+        }
+    })
 
     
     // Chama a função para começar a buscar os dados assim que a página carregar

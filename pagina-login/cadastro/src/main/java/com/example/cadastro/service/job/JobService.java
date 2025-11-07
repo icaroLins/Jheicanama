@@ -2,6 +2,7 @@
 package com.example.cadastro.service.job;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,26 @@ public class JobService {
 
     public void deleteJob(Long id){
         jobRepository.deleteById(id);
+    }
+
+    public JobVacancies edidVaga(Long id, Long contractorId, JobVacancies vagaAtualizada ){
+        Optional<JobVacancies> vagaOptional =  jobRepository.findById(id);
+
+        if(vagaOptional.isEmpty()){
+            throw new RuntimeException("Vaga não encontrada!");
+        }
+
+        JobVacancies vaga = vagaOptional.get();
+
+        if(!vaga.getContractor().getId().equals(contractorId)){
+            throw new RuntimeException("Você não tem permissão para editar essa vaga!");
+        }
+
+        vaga.setTitle(vagaAtualizada.getTitle());
+        vaga.setDescription(vagaAtualizada.getDescription());
+        vaga.setWage(vagaAtualizada.getWage());
+        vaga.setArea(vagaAtualizada.getArea());
+
+        return jobRepository.save(vaga);
     }
 }

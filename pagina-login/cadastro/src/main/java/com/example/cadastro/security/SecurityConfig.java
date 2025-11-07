@@ -10,6 +10,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.cadastro.service.CustomUserDetailsService;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
+
+import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig {
@@ -29,23 +36,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http
+            .csrf(csrf -> csrf.disable()) // desativa CSRF
+            .cors(cors -> {}) // usa o bean de CORS abaixo
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                     "/usuarios/login",
-                                "/usuarios/register",
-                                "/usuarios/me",
-                                "/contratantes/login",
-                                "/contratantes/register",
-                                "/contratantes/me"
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
+                    .requestMatchers(
+                            "/usuarios/login",
+                            "/usuarios/register",
+                            "/usuarios/me",
+                            "/contratantes/login",
+                            "/contratantes/register",
+                            "/contratantes/me",
+                            "/uploads/**")
+                    .permitAll()
+                    .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    // CORS global para permitir frontend local
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
     }
 
     @Bean

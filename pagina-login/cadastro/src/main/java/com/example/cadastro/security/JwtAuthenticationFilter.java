@@ -24,12 +24,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // Endpoints públicos
     private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
             "/usuarios/login",
-        "/usuarios/register",
-        "/usuarios/me",
-        "/contratantes/login",
-        "/contratantes/register",
-        "/contratantes/me"
-    );
+            "/usuarios/register",
+            "/usuarios/me",
+            "/contratantes/login",
+            "/contratantes/register",
+            "/contratantes/me");
 
     public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
@@ -38,8 +37,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
         String originalPath = request.getRequestURI();
 
@@ -47,11 +46,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         int queryIndex = originalPath.indexOf("?");
         String normalizedPath = (queryIndex != -1) ? originalPath.substring(0, queryIndex) : originalPath;
 
-        // Normaliza barra final para comparação
-        String normalizedPathWithSlash = normalizedPath.endsWith("/") ? normalizedPath : normalizedPath + "/";
-
         boolean isPublic = PUBLIC_ENDPOINTS.stream()
-                .anyMatch(p -> (p + "/").equalsIgnoreCase(normalizedPathWithSlash));
+                .anyMatch(p -> normalizedPath.equalsIgnoreCase(p) ||
+                        normalizedPath.equalsIgnoreCase(p + "/"));
+
+        // (Opcional) Mostra no console o que está sendo filtrado
+        System.out.println("🔎 Requisição recebida em: " + normalizedPath + " | Público: " + isPublic);
 
         if (!isPublic) {
             // Endpoints privados → autenticação JWT
@@ -64,10 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     String identifier = jwtUtil.extractIdentifier(token);
                     UserDetails userDetails = userDetailsService.loadUserByUsername(identifier);
 
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails, null, userDetails.getAuthorities()
-                            );
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }

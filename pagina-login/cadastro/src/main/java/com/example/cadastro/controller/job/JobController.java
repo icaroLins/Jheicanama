@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cadastro.model.Contractor;
 import com.example.cadastro.model.job.JobVacancies;
+import com.example.cadastro.repository.ContractorRepository;
 import com.example.cadastro.security.JwtUtil;
 import com.example.cadastro.service.ContractorService;
 import com.example.cadastro.service.job.JobService;
@@ -26,11 +28,14 @@ public class JobController {
     private final JobService jobService;
     private final JwtUtil jwtUtil;
     private final ContractorService contractorService;
+    private final ContractorRepository contractorRepository;
 
-    public JobController(JobService jobService, JwtUtil jwtUtil, ContractorService contractorService) {
+    public JobController(JobService jobService, JwtUtil jwtUtil, ContractorService contractorService,
+            ContractorRepository contractorRepository) {
         this.contractorService = contractorService;
         this.jobService = jobService;
         this.jwtUtil = jwtUtil;
+        this.contractorRepository = contractorRepository;
     }
 
     @PostMapping("/criar")
@@ -69,6 +74,26 @@ public class JobController {
 
         List<JobVacancies> vagas = jobService.getJobByContractor(contractor.getId());
         return ResponseEntity.ok(vagas);
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<?> editarVaga(
+            @PathVariable Long id,
+            @RequestBody JobVacancies vagaAtualizada,
+            @RequestHeader("Authorization") String token) {
+        token = token.replace("Bearer ", "");
+
+        String email = jwtUtil.extractIdentifier(token);
+
+        Contractor contractor = contractorRepository.findByEmail(email);
+        if (contractor == null) {
+            throw new RuntimeException("Contratante não encontrado");
+        }
+        Long contractorId = contractor.getId();
+
+        JobVacancies vagaEditada = jobService.edidVaga(id, contractorId, vagaAtualizada);
+        return ResponseEntity.ok(vagaEditada);
+
     }
 
     @DeleteMapping("/{id}")

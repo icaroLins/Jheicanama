@@ -60,4 +60,8 @@ public class ContractorService {
     public String gerarToken(Contractor user){
         return jwtUtil.generateToken(user.getEmail());
     }
+
+    public Contractor save(Contractor user){
+        return contractorRepository.save(user);
+    }
 }

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 1. LÓGICA DE ENVIO DO FORMULÁRIO (CRIAR VAGA) */
     /* ============================================= */
     const form = document.querySelector('form'); 
-<<<<<<< HEAD
+     
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -12,18 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'login.html';
         return;
     }
-=======
+
     
     // Verifica se o formulário existe na página antes de adicionar o listener
     if (form) {
         form.addEventListener('submit', async (event) => {
             event.preventDefault(); 
->>>>>>> 60a131e8a7a660d05893c55ad1eb385cc63f31f8
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-<<<<<<< HEAD
+      
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
@@ -61,32 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Erro de conexão. Tente novamente.');
         }
     });
-});
-=======
-            try {
-                // Envia os dados para o endpoint do servidor
-                const response = await fetch('/salvar-dados', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json' // Indica que estamos enviando JSON
-                    },
-                    body: JSON.stringify(data) // Converte o objeto JS para uma string JSON
-                });
-
-                if (response.ok) {
-                    alert('Vaga salva com sucesso!');
-                    form.reset(); // Limpa o formulário após o sucesso
-                } else {
-                    const errorData = await response.json();
-                    alert(`Erro ao salvar: ${errorData.message || response.statusText}`);
-                }
-            } catch (error) {
-                console.error('Erro de rede ou servidor:', error);
-                alert('Erro de conexão. Tente novamente.');
-            }
-        });
-    }
-
+}
 
     /* ============================================= */
     /* 2. LÓGICA DO MENU COLAPSÁVEL (DROPDOWN) */
@@ -134,5 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn("AVISO: Um ou mais elementos do Menu Colapsável não foram encontrados. O menu pode não funcionar corretamente.");
     }
-});
->>>>>>> 60a131e8a7a660d05893c55ad1eb385cc63f31f8
+        });
+    
+
+
+    
