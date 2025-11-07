@@ -49,7 +49,7 @@ public class ContractorController {
             Contractor user = identificador.matches("\\d+") ?
                 contractorService.searchByCnpj(identificador) :
                 contractorService.searchByEmail(identificador);
-            String token = jwtUtil.generateToken(identificador);
+            String token = jwtUtil.generateToken(user.getEmail());
             return ResponseEntity.ok(Map.of(
                     "token",token,
                     "tipo", "contractor"
@@ -69,9 +69,13 @@ public class ContractorController {
             return ResponseEntity.status(401).body("Token inválido ou expirado");
         }
 
-        String cnpj = jwtUtil.extractIdentifier(token);
-        cnpj = cnpj.replaceAll("[^\\d]", "");
-        Contractor user = contractorService.searchByCnpj(cnpj);
+        String email = jwtUtil.extractIdentifier(token);
+        Contractor user = contractorService.searchByEmail(email);
+
+        if(user == null){
+        return ResponseEntity.status(404).body(Map.of("error","Usuário não encontrado"));
+    }
+
 
         return ResponseEntity.ok(user);
     }

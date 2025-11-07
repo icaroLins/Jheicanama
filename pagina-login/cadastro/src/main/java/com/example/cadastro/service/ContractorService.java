@@ -58,6 +58,6 @@ public class ContractorService {
     }
 
     public String gerarToken(Contractor user){
-        return jwtUtil.generateToken(user.getCnpj());
+        return jwtUtil.generateToken(user.getEmail());
     }
 }

@@ -3,18 +3,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 1. API (Configuração) ---
     
     // API.
-    const API_PERFIL_URL = ''; // URL da API para buscar dados do perfil
+    const API_PERFIL_URL = 'http://localhost:8080/usuarios/me'; 
+    const token = localStorage.getItem('token');
 
-    
-    // --- 2. Carregamento de Dados do Perfil ---
+    if (!token) {
+        alert('Você precisa estar logado para acessar esta página.');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    console.log("Token enviado no fetch:", token);
+
+    // --- 2. receber os dados---
     
     async function carregarDadosDoPerfil() {
         try {
             // [ATENÇÃO: Esta chamada falhará se API_PERFIL_URL for vazia ou inválida]
             const resposta = await fetch(API_PERFIL_URL, {
                 method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`, // Envia o token
+                    'Content-Type': 'application/json'
+                }
                 
             });
+
+             if (resposta.status === 401) {
+                alert('Sessão expirada. Faça login novamente.');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (resposta.status === 403) {
+                alert('Você não tem permissão para acessar este recurso.');
+                return;
+            }
 
             if (!resposta.ok) {
                 throw new Error(`Erro de rede ou servidor: ${resposta.status}`);
@@ -40,16 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // nome, email, cpf, dataNascimento e urlFoto.
     function preencherPerfil(dados) {
         // Atualiza as informações de texto
-        const infoNome = document.getElementById('infoNome');
-        const infoEmail = document.getElementById('infoEmail');
-        const infoCPF = document.getElementById('infoCPF');
-        const infoNascimento = document.getElementById('infoNascimento');
-        const fotoUsuario = document.getElementById('fotoUsuario');
-        
-        if (infoNome) infoNome.textContent = dados.nome || 'Não informado';
-        if (infoEmail) infoEmail.textContent = dados.email || 'Não informado';
-        if (infoCPF) infoCPF.textContent = dados.cpf || 'Não informado';
-        if (infoNascimento) infoNascimento.textContent = dados.dataNascimento || 'Não informado';
+        document.getElementById('infoNome').textContent = dados.name || 'Não informado';
+        document.getElementById('infoEmail').textContent = dados.email || 'Não informado';
+        document.getElementById('infoCPF').textContent = dados.cpf || 'Não informado';
+        //document.getElementById('infoNascimento').textContent = dados.dataNascimento || 'Não informado';
         
         // Atualiza a foto se o URL for válido
         if (dados.urlFoto && fotoUsuario) {
