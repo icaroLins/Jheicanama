@@ -13,6 +13,6 @@ import com.example.cadastro.model.job.JobVacancies;
 public interface CandidatureRepository extends JpaRepository<Candidatura, Long > {
     
     Optional<Candidatura> findByUserAndVagas(Candidate user, JobVacancies vagas);
-
+    List<Candidatura> findByUser(Candidate user);
     List<Candidatura> findByVagas(JobVacancies vagas);
 }

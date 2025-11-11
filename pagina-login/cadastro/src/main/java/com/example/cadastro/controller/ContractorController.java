@@ -52,7 +52,7 @@ public class ContractorController {
         if (valido) {
             Contractor user = identificador.matches("\\d+") ? contractorService.searchByCnpj(identificador)
                     : contractorService.searchByEmail(identificador);
-            String token = jwtUtil.generateToken(user.getEmail());
+            String token = jwtUtil.generateToken(user.getEmail(), user.getId());
             return ResponseEntity.ok(Map.of(
                     "token", token,
                     "tipo", "contractor"));

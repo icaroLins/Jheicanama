@@ -1,0 +1,380 @@
+body {
+    /* Fundo com a imagem, sem alteração */
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
+    background-size: contain; 
+
+    /* ATUALIZAÇÃO CRÍTICA PARA O CABEÇALHO FIXO: */
+    position: relative; 
+    min-height: 100vh; 
+    padding-top: 70px; /* RESERVA ESPAÇO para o cabeçalho fixo (ajuste se necessário) */
+    
+    /* Centralização do conteúdo principal (perfil) */
+    display: flex;
+    justify-content: center; /* Centraliza o container horizontalmente */
+    align-items: flex-start; /* Alinha o conteúdo principal ao topo, logo abaixo do padding-top */
+    
+    margin: 0;
+    font-family: Arial, sans-serif;
+    padding-bottom: 20px; /* Adiciona espaço na parte inferior, se a tela for pequena */
+}
+
+/* Removido body::before, pois não foi fornecido na última atualização */
+
+
+/* ============================================= */
+/* ESTILOS DO CABEÇALHO (HEADER) */
+/* ============================================= */
+
+/* O container do cabeçalho */
+.main-header {
+    width: 100%;
+    background-color: #ffffff; 
+    padding: 0; 
+    position: fixed; /* O ponto chave para o cabeçalho ficar no topo */
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* Seu estilo UL aplicado à lista dentro do cabeçalho */
+.header-list { 
+    display: flex;
+    justify-content: space-between; 
+    list-style-type: none;
+    padding: 15px 2.5%; 
+    width: 95%; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilos base para todos os textos do cabeçalho (FREELANCE, CRIAR, MENU) */
+.header-list a, .logo-text, .menu-titulo-colapsavel {
+    font-family: 'Verdana', sans-serif;
+    font-size: 25px; 
+    color: rgb(5, 5, 113);
+    text-decoration: none;
+    font-weight: bold; 
+    transition: all 0.2s ease-out;
+}
+
+/* Garante que o texto FREELANCE não seja afetado pelo display flex dos LIs */
+.logo-text {
+    display: block;
+}
+
+/* Estilo para a linha divisória (HR) */
+.header-separator {
+    border: 0;
+    height: 1px;
+    background-color: #ccc; 
+    margin: 0; 
+}
+
+/* Contêiner dos links à direita (MENU e CRIAR) */
+.nav-links-right {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+}
+
+/* ============================================= */
+/* ESTILOS DO MENU DROPDOWN */
+/* ============================================= */
+
+/* Contêiner do botão MENU */
+.menu-header-toggle {
+    position: relative; 
+    z-index: 1001;
+}
+
+/* Estilo do botão de clique MENU (inclui o icone-toggle) */
+.menu-titulo-colapsavel {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%; 
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Estilo do ícone de toggle (seta) */
+.icone-toggle {
+    transition: transform 0.3s ease;
+}
+
+/* 2. Estilo do Dropdown quando está ABERTO (Contêiner das opções) */
+.menu-dropdown-header {
+   /* MUDANÇA CRÍTICA AQUI: O menu deve se basear no HEADER (ou BODY) */
+    position: fixed; /* Usa o viewport como referência, como o header */
+    
+    /* Alinhamento forçado à direita, com a mesma margem do seu .header-list */
+    top: 70px; /* Ajuste se 70px não for o suficiente para pular o header inteiro */
+    right: 2.5%; /* Alinhado com a borda direita do seu conteúdo */
+    
+    z-index: 1000; /* Abaixo do botão de toggle */
+
+    /* Estilos visuais */
+    width: 250px; 
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+
+    /* PROPRIEDADES CRÍTICAS PARA A VISIBILIDADE E ANIMAÇÃO: */
+    max-height: 500px; 
+    padding: 10px; 
+    opacity: 1; 
+    overflow: hidden; 
+    
+    /* TRANSIÇÃO CRÍTICA PARA A ANIMAÇÃO (mantida) */
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+
+/* Remove margem e padding do ul dentro do dropdown */
+.menu-dropdown-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo dos links dentro do dropdown */
+.menu-dropdown-header a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 16px; 
+    color: #444;
+    transition: background-color 0.2s;
+    font-weight: normal; 
+}
+
+.menu-dropdown-header a:hover {
+    background-color: #f0f0f0;
+    color: rgb(5, 5, 113);
+    font-weight: normal; 
+}
+
+/* 3. Ajuste final para o estado ESCONDIDO (Aplicado pelo JavaScript) */
+.menu-escondido {
+    max-height: 0 !important; 
+    padding: 0 !important;    
+    opacity: 0 !important;    
+    overflow: hidden !important; 
+    visibility: hidden !important;
+}
+
+
+.candidaturas-main-container {
+    /* Base de cores e estilo 3D (Seu estilo mantido) */
+    background-color: rgba(255, 255, 255, 0.7); /* Fundo semi-transparente mantido */
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 1000px; /* Largura máxima definida para centralizar */
+    width: 95%; 
+    margin: 30px auto; /* Centraliza */
+    
+    /* Adaptando o efeito de caixa 3D (Seu estilo mantido) */
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+    border: 1px solid rgb(0, 0, 0);
+    color: #333;
+}
+
+.candidaturas-main-container h1 {
+    /* Adaptado de .vagas-container-grande h2 (Seu estilo mantido) */
+    color: rgb(5, 5, 133); /* Azul escuro */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    border-bottom: 2px solid rgba(5, 5, 133, 0.5);
+    padding-bottom: 10px;
+}
+
+
+.status-horizontal-container { 
+    display: flex; /* Habilita o Flexbox */
+    gap: 20px;     /* Espaçamento entre as colunas */
+    margin-top: 30px;
+    flex-wrap: wrap; /* Garante quebras em telas menores */
+    justify-content: space-between; /* Distribui o espaço entre as colunas */
+}
+
+/* ============================================= */
+/* ESTILOS DE SEÇÕES E TÍTULOS DE STATUS */
+/* ============================================= */
+
+.candidaturas-section {
+    /* A chave para o alinhamento horizontal: ocupa 1 parte do espaço disponível */
+    flex: 1 1 280px; /* Flex: Cresce(1), Encolhe(1), Base mínima(300px) */
+    
+    /* Adaptando a aparência da seção */
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid black; /* Borda mantida do seu card */
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.3); /* Sombra mantida do seu card */ 
+}
+
+/* Título de cada seção (Ajustado para o novo layout) */
+.status-titulo {
+    color: rgb(5, 5, 133); /* Cor do seu H1/H3 */
+    text-align: center;
+    font-size: 1.5em; /* Reduzido para caber melhor na coluna */
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-bottom: 2px solid rgba(5, 5, 133, 0.5); /* Sua cor de separador */
+    padding-bottom: 5px;
+}
+
+/* CONTAINER DOS CARDS DENTRO DE CADA SEÇÃO (Reorganizado para empilhar verticalmente) */
+.lista-candidaturas-status {
+    /* Remove as regras de Grid, pois o Flexbox está organizando as colunas */
+    display: flex;
+    flex-direction: column; /* Faz os cards internos ficarem um abaixo do outro */
+    gap: 15px; /* Espaço entre os cards */
+    margin-top: 10px;
+    text-align: left;
+    padding: 0;
+    /* Adicionado padding para melhor visualização */
+    min-height: 100px; /* Garante uma altura mínima para visualização */
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================= */
+/* REGRAS DE MEDIA QUERIES (Para Responsividade) */
+/* ============================================= */
+
+@media (max-width: 1000px) {
+    /* Em telas de tablet para baixo, as colunas de status voltam a ser verticais */
+    .status-horizontal-container {
+        flex-direction: column; 
+    }
+    
+    .candidaturas-section {
+        flex-basis: 100%; /* Ocupa a largura total */
+        margin-bottom: 20px; /* Adiciona a margem de volta quando estão verticais */
+    }
+
+    .status-titulo {
+        font-size: 1.8em; /* Aumenta o título de volta em telas menores */
+    }
+}
+
+
+/* ============================================= */
+/* ESTILOS DOS CARDS (Adaptado de .card-vaga) */
+/* ============================================= */
+
+.card-status {
+    /* Base do card-vaga (Seu estilo mantido) */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+    /* Altura removida para permitir que o conteúdo dite a altura */
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+.card-status:hover {
+    /* Efeito de hover do card-vaga (Seu estilo mantido) */
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+}
+
+.card-status h4 {
+    /* Adaptado de card-vaga h3 (Seu estilo mantido) */
+    color: rgb(5, 5, 133);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.card-status p {
+    /* (Seu estilo mantido) */
+    margin: 5px 0;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.card-status strong {
+    /* (Seu estilo mantido) */
+    color: #222;
+}
+
+/* ============================================= */
+/* ESTILOS ESPECÍFICOS DO STATUS TAG E CORES */
+/* ============================================= */
+
+.status-tag {
+    /* (Seu estilo mantido) */
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 5px; 
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    margin-top: 15px;
+    letter-spacing: 0.5px;
+    box-shadow: 1px 1px 0 0 rgba(0,0,0,0.2); 
+}
+
+/* Status: Em Espera (Amarelo/Laranja) */
+.status-espera {
+    /* (Seu estilo mantido) */
+    background-color: #ffc107; 
+    color: #343a40; 
+    border: 1px solid #ff9900;
+}
+
+/* Status: Confirmado (Verde) */
+.status-confirmado {
+    /* (Seu estilo mantido) */
+    background-color: #28a745; 
+    color: white; 
+    border: 1px solid #1e7e34;
+}
+
+/* Status: Recusado (Vermelho) */
+.status-recusado {
+    /* (Seu estilo mantido) */
+    background-color: #dc3545; 
+    color: white;
+    border: 1px solid #c82333;
+}
+
+/* Estilo adicional para o Card Recusado */
+.card-status[data-status="recusado"] {
+    /* (Seu estilo mantido) */
+    opacity: 0.7; 
+    background-color: #f8f8f8;
+    box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3); 
+    transform: none !important; 
+    cursor: default;
+}
+
+/* ============================================= */
+/* ESTILOS DE MENSAGENS (Vazio, Alerta) */
+/* ============================================= */
+
+.mensagem-carregamento, .mensagem-alerta, .mensagem-vazio {
+    /* Ocupa a largura total da COLUNA, não da grade inteira */
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    color: #6a6a6a;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px dashed #ccc;
+    font-style: italic;
+    box-sizing: border-box; 
+    white-space: normal;
+    /* Flexbox não usa grid-column, então a propriedade foi removida */
+}

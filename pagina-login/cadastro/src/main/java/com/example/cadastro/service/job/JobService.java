@@ -25,6 +25,10 @@ public class JobService {
         return jobRepository.findByContractor_Id(contractorId);
     }
 
+    public List<JobVacancies> getJobByCandidate(){
+        return jobRepository.findAll();
+    }
+
     public void deleteJob(Long id){
         jobRepository.deleteById(id);
     }

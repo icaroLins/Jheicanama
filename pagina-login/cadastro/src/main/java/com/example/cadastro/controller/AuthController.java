@@ -55,7 +55,7 @@ public class AuthController {
             } else {
                 user = userService.searchByEmail(request.getIdentificador());
             }
-            String token = jwtUtil.generateToken(user.getCpf());
+            String token = jwtUtil.generateToken(user.getCpf(), user.getId());
             return ResponseEntity.ok(Map.of(
                     "token", token,
                     "tipo", "candidate"));

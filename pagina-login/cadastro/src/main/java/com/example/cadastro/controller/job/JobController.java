@@ -76,7 +76,21 @@ public class JobController {
         return ResponseEntity.ok(vagas);
     }
 
-    @PutMapping("/{id}")
+    @GetMapping("/listar")
+    public ResponseEntity<?> listarTodasAsVagas(@RequestHeader("Authorization") String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        if (!jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(401).body("Token inválido ou expirado");
+        }
+
+        List<JobVacancies> vagas = jobService.getJobByCandidate();
+        return ResponseEntity.ok(vagas);
+    }
+
+    @PutMapping("/{id}/edid")
     ResponseEntity<?> editarVaga(
             @PathVariable Long id,
             @RequestBody JobVacancies vagaAtualizada,
@@ -96,7 +110,7 @@ public class JobController {
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{vagaId}/deletar")
     public ResponseEntity<?> deleteVaga(@PathVariable Long id) {
         jobService.deleteJob(id);
         return ResponseEntity.ok("Vaga excluida com sucesso");

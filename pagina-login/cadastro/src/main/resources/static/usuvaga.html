@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="usuvaga.css">
+</head>
+<body>
+    <!-- Este é o único header que você precisa -->
+    <header class="main-header">
+        <nav class="header-nav-content">
+            <ul class="header-list">
+                <li class="logo-item">
+                    <span class="logo-text">FREELANCE</span> 
+                </li>
+                
+                <li class="nav-links-right">
+                    <div id="btn-navegacao" class="menu-header-toggle menu-titulo-colapsavel">
+                        MENU <span class="icone-toggle">▼</span>
+                    </div>
+                </li> 
+            </ul>
+        </nav>
+        <hr class="header-separator">
+        
+        <div id="menu-opcoes" class="menu-conteudo menu-escondido menu-dropdown-header">
+            <ul>
+                <li><a href="perfil.html">Meu Perfil</a></li>
+                 <li><a href="amostra.html">Freelances</a></li>
+                <li><a href="login.html">Login/Sair</a></li>
+            </ul>
+        </div>
+    </header>
+
+    
+    <main class="candidaturas-main-container">
+        <h1>Minhas Candidaturas</h1>
+
+        <div class="status-horizontal-container"> 
+            <section class="candidaturas-section">
+                <h2 class="status-titulo">⏳ Em Espera</h2>
+                <div id="lista-espera" class="lista-candidaturas-status">
+                    <p class="mensagem-carregamento">Carregando candidaturas em espera...</p>
+                </div>
+            </section>
+
+            <section class="candidaturas-section">
+                <h2 class="status-titulo">✅ Confirmado</h2>
+                <div id="lista-aceitas" class="lista-candidaturas-status">
+                    <p class="mensagem-carregamento">Carregando candidaturas confirmadas...</p>
+                </div>
+            </section>
+            
+            <section class="candidaturas-section">
+                <h2 class="status-titulo">❌ Recusado</h2>
+                <div id="lista-recusadas" class="lista-candidaturas-status">
+                    <p class="mensagem-carregamento">Carregando candidaturas recusadas...</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+  
+
+<script src="menu.js"></script>
+<script src="usuvaga.js"></script>
+   
+</body>
+</html>

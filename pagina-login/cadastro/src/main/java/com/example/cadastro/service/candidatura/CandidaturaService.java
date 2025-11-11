@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.cadastro.enum_Candidatura.StatusCandidatura;
 import com.example.cadastro.model.Candidate;
+import com.example.cadastro.model.applicationDTO.ApplicationDTO;
 import com.example.cadastro.model.candidatura.Candidatura;
 import com.example.cadastro.model.job.JobVacancies;
 import com.example.cadastro.repository.UserRepository;
@@ -44,16 +45,16 @@ public class CandidaturaService {
         JobVacancies vagas = jobRepository.findById(vagaId)
                 .orElseThrow(() -> new RuntimeException("vaga não encontrada"));
 
-                return candidaturaRepository.findByVagas(vagas);
+        return candidaturaRepository.findByVagas(vagas);
     }
 
-    public Candidatura aceitarCandidatura(Long candidaturaId, Long contractorId){
+    public Candidatura aceitarCandidatura(Long candidaturaId, Long contractorId) {
         Candidatura candidatura = candidaturaRepository.findById(candidaturaId)
                 .orElseThrow(() -> new RuntimeException("Candidatura não encontrada"));
 
         JobVacancies vaga = candidatura.getVagas();
 
-        if(!vaga.getContractor().getId().equals(contractorId)){
+        if (!vaga.getContractor().getId().equals(contractorId)) {
             throw new RuntimeException("Você não pode aceitar candidatos nessa vaga!");
         }
 
@@ -61,6 +62,29 @@ public class CandidaturaService {
         candidaturaRepository.save(candidatura);
 
         return candidatura;
+    }
+
+    public Candidatura recusarCandidatura(Long candidaturaId, Long contractorId){
+        Candidatura candidatura = candidaturaRepository.findById(candidaturaId)
+                .orElseThrow(()-> new RuntimeException("Candidatura não encontrada"));
+            
+        JobVacancies vaga = candidatura.getVagas();
+
+        if(!vaga.getContractor().getId().equals(contractorId)){
+            throw new RuntimeException("Você não pode recusar candidatos nessa vaga!");
+        }
+
+        candidatura.setStatus(StatusCandidatura.RECUSADO);
+        candidaturaRepository.save(candidatura);
+
+        return candidatura;
+    }
+
+    public List<Candidatura> getCandidaturasDoCandidato(Long candidateId) {
+        Candidate candidate = userRepository.findById(candidateId)
+                .orElseThrow(() -> new RuntimeException("Candidato não encontrado"));
+
+        return candidaturaRepository.findByUser(candidate);
     }
 
 }

@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const listaVagasElement = document.getElementById('lista-de-vagas');
-    const CHAVE_RECUSADAS = 'vagasRecusadas'; 
+    const CHAVE_RECUSADAS = 'vagasRecusadas';
+    const userId = localStorage.getItem('userId');
+
+    const token = localStorage.getItem("token"); // ou sessionStorage
+    if (!token) {
+        alert("Você precisa estar logado!");
+        return;
+    }
 
     // Função para obter as IDs das vagas recusadas
     function getVagasRecusadas() {
@@ -12,77 +19,78 @@ document.addEventListener('DOMContentLoaded', () => {
     function salvarVagasRecusadas(recusadasSet) {
         localStorage.setItem(CHAVE_RECUSADAS, JSON.stringify(Array.from(recusadasSet)));
     }
-    
-    
+
+
     // FUNÇÕES Dos  boTÕES
     function handleCandidatar(event, idVaga) {
-        
-        event.stopPropagation(); 
-        event.preventDefault(); 
-        
+
+        event.stopPropagation();
+        event.preventDefault();
+
         const btnCandidatar = event.target;
         btnCandidatar.disabled = true;
         btnCandidatar.textContent = 'Enviando...';
-        
-        fetch('/candidatar-vaga', { // Endpoint SUGERIDO: POST
+
+        fetch(`http://localhost:8080/vagas/${idVaga}/candidatar`, { // Endpoint SUGERIDO: POST
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Envia o token
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ vagaId: idVaga })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Falha ao registrar candidatura. Status: ${response.status}`);
-            }
-            return response.json(); 
-        })
-        .then(data => {
-            alert(`Candidatura para a vaga ID: ${idVaga} enviada com sucesso! Verifique seu perfil.`);
-            
-            const cardContainer = btnCandidatar.closest('.card-container');
-            const cardVaga = cardContainer ? cardContainer.querySelector('.card-vaga') : null;
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Falha ao registrar candidatura. Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(`Candidatura para a vaga ID: ${idVaga} enviada com sucesso! Verifique seu perfil.`);
 
-            if (cardContainer && cardVaga) {
-                 // Se a vaga NÃO estava recusada, a remove da lista de disponíveis
-                 if (!cardVaga.classList.contains('vaga-recusada')) {
-                    cardContainer.remove();
-                 } 
-                 // Se estava recusada, reverte a recusa para que ela fique "normal" na lista, mas com o botão de Candidatar desabilitado/alterado
-                 else {
-                    reverterRecusa(cardContainer, idVaga);
-                    // Mantém o botão de candidatura no estado final de sucesso (e não de recusa revertida)
-                    btnCandidatar.disabled = false;
-                    btnCandidatar.textContent = 'Candidatado';
-                 }
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao candidatar:', error);
-            alert(`Erro ao enviar candidatura: ${error.message || 'Tente novamente.'}`);
-            btnCandidatar.disabled = false;
-            btnCandidatar.textContent = 'Candidatar'; 
-        });
+                const cardContainer = btnCandidatar.closest('.card-container');
+                const cardVaga = cardContainer ? cardContainer.querySelector('.card-vaga') : null;
+
+                if (cardContainer && cardVaga) {
+                    // Se a vaga NÃO estava recusada, a remove da lista de disponíveis
+                    if (!cardVaga.classList.contains('vaga-recusada')) {
+                        cardContainer.remove();
+                    }
+                    // Se estava recusada, reverte a recusa para que ela fique "normal" na lista, mas com o botão de Candidatar desabilitado/alterado
+                    else {
+                        reverterRecusa(cardContainer, idVaga);
+                        // Mantém o botão de candidatura no estado final de sucesso (e não de recusa revertida)
+                        btnCandidatar.disabled = false;
+                        btnCandidatar.textContent = 'Candidatado';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao candidatar:', error);
+                alert(`Erro ao enviar candidatura: ${error.message || 'Tente novamente.'}`);
+                btnCandidatar.disabled = false;
+                btnCandidatar.textContent = 'Candidatar';
+            });
     }
 
     function handleRecusar(event, idVaga) {
         event.stopPropagation();
         event.preventDefault();
 
-        const cardContainer = event.target.closest('.card-container'); 
+        const cardContainer = event.target.closest('.card-container');
         const cardVaga = cardContainer ? cardContainer.querySelector('.card-vaga') : null;
-        
+
         if (!cardVaga) return;
-        
+
         if (!cardVaga.classList.contains('vaga-recusada')) {
-            
+
             cardVaga.classList.add('vaga-recusada');
-            listaVagasElement.appendChild(cardContainer); 
+            listaVagasElement.appendChild(cardContainer);
 
             const recusadas = getVagasRecusadas();
-            recusadas.add(String(idVaga)); 
+            recusadas.add(String(idVaga));
             salvarVagasRecusadas(recusadas);
-            
+
             console.log(`Vaga ID ${idVaga} recusada e movida para o final.`);
         } else {
             reverterRecusa(cardContainer, idVaga);
@@ -93,37 +101,43 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cardContainer) return;
 
         const cardVaga = cardContainer.querySelector('.card-vaga');
-        
+
         if (!cardVaga) return;
 
         cardVaga.classList.remove('vaga-recusada');
-        
+
         const recusadas = getVagasRecusadas();
         recusadas.delete(String(idVaga));
         salvarVagasRecusadas(recusadas);
 
         listaVagasElement.prepend(cardContainer);
-        
+
         console.log(`Vaga ID ${idVaga} teve a recusa revertida.`);
     }
 
-    
+
     // BUSCA E RENDERIZAÇÃO
 
     async function buscarVagas() {
-        listaVagasElement.innerHTML = ''; 
+        listaVagasElement.innerHTML = '';
         const vagasRecusadasSet = getVagasRecusadas();
         let vagasDisponiveis = [];
         let vagasRecusadas = [];
 
         try {
-            const response = await fetch('/buscar-vagas'); 
+            const response = await fetch('http://localhost:8080/vaga/listar',{
+                method: "get",
+                headers:{
+                    'Authorization': `Bearer ${token}`, // Envia o token
+                    'Content-Type': 'application/json'
+                }
+            });
 
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
             }
-            const vagas = await response.json(); 
-            
+            const vagas = await response.json();
+
             if (vagas.length === 0) {
                 listaVagasElement.innerHTML = '<p class="mensagem-alerta">Nenhuma vaga disponível no momento.</p>';
                 return;
@@ -156,13 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função que constrói o cartão de vaga
     function criarCardVaga(vaga, isRecusada) {
-        
+
         const cardWrapper = document.createElement('div');
-        cardWrapper.classList.add('card-container'); 
+        cardWrapper.classList.add('card-container');
 
         const cardVaga = document.createElement('div');
         cardVaga.classList.add('card-vaga');
-        
+
         if (isRecusada) {
             cardVaga.classList.add('vaga-recusada');
         }
@@ -196,22 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     buscarVagas();
-    
-    
+
+
     // DROPDOWN (menu)
-    
+
     const btnNavegacao = document.getElementById('btn-navegacao');
     const menuOpcoes = document.getElementById('menu-opcoes');
-    const iconeToggle = document.querySelector('#btn-navegacao .icone-toggle'); 
+    const iconeToggle = document.querySelector('#btn-navegacao .icone-toggle');
 
     if (btnNavegacao && menuOpcoes && iconeToggle) {
-        
+
         menuOpcoes.classList.add('menu-escondido');
-        iconeToggle.style.transform = 'rotate(0deg)'; 
+        iconeToggle.style.transform = 'rotate(0deg)';
 
         btnNavegacao.addEventListener('click', (event) => {
-            event.stopPropagation(); 
-            
+            event.stopPropagation();
+
             menuOpcoes.classList.toggle('menu-escondido');
 
             if (menuOpcoes.classList.contains('menu-escondido')) {

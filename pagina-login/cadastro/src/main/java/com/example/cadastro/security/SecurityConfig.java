@@ -41,14 +41,17 @@ public class SecurityConfig {
             .cors(cors -> {}) // usa o bean de CORS abaixo
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
+                        "/satatic/**",
                             "/usuarios/login",
                             "/usuarios/register",
                             "/usuarios/me",
                             "/contratantes/login",
                             "/contratantes/register",
                             "/contratantes/me",
-                            "/uploads/**")
+                            "/uploads/**"
+                            )
                     .permitAll()
+                    .requestMatchers("/vaga/**", "/vagas/**").authenticated()
                     .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

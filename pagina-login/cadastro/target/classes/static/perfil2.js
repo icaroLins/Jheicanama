@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const resposta = await fetch(API_PERFIL_URL, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Envia o token
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }// token aqui
 

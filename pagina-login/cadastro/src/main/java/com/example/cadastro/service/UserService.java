@@ -70,7 +70,7 @@ public class UserService {
     }
 
     public String gerarToken(Candidate user){
-        return jwtUtil.generateToken(user.getCpf());
+        return jwtUtil.generateToken(user.getCpf(), user.getId());
     }
 
     public Candidate save(Candidate user){
