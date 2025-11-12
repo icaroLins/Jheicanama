@@ -84,8 +84,7 @@ body {
     position: relative; 
 }
 
-/* Estilo do botão de clique MENU (inclui o icone-toggle) */
-/* Removida repetição de estilos já definidos na regra .header-list a, .logo-text, .menu-titulo-colapsavel */
+/* Estilo do botão de clique MENU */
 .menu-titulo-colapsavel {
     cursor: pointer;
     user-select: none;
@@ -104,7 +103,6 @@ body {
 
 /* 2. Estilo do Dropdown quando está ABERTO (Contêiner das opções) */
 .menu-dropdown-header {
-    /* POSICIONAMENTO */
     position: absolute;
     top: 55px; /* Alinhado logo abaixo do cabeçalho */
     right: 2.5%; /* Alinhado com a borda direita do conteúdo */
@@ -117,13 +115,11 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 5px;
 
-    /* PROPRIEDADES CRÍTICAS PARA A VISIBILIDADE E ANIMAÇÃO: */
+    /* PARA A VISIBILIDADE E ANIMAÇÃO: */
     max-height: 500px; /* Altura máxima quando aberto */
     padding: 10px; /* Espaçamento interno quando aberto */
     opacity: 1; /* Visível quando aberto */
     overflow: hidden; 
-    
-    /* TRANSIÇÃO CRÍTICA PARA A ANIMAÇÃO */
     transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.4s ease-out;
 }
 
@@ -152,9 +148,9 @@ body {
 
 /* 3. Ajuste final para o estado ESCONDIDO (Aplicado pelo JavaScript) */
 .menu-escondido {
-    max-height: 0 !important; /* FORÇA altura zero (escondido) */
-    padding: 0 !important;  /* FORÇA padding zero (sem altura) */
-    opacity: 0 !important; /* FORÇA invisibilidade (escondido) */
+    max-height: 0 !important; /*  altura zero (escondido) */
+    padding: 0 !important;  /*  padding zero (sem altura) */
+    opacity: 0 !important; /*  invisibilidade (escondido) */
     overflow: hidden !important; 
     
     /* Remove borda e sombra para esconder completamente */
@@ -165,7 +161,6 @@ body {
 /* ESTILOS DE VAGAS E CARD */
 
 .vagas-container-grande {
-    /* (Mantido: Estilo Falso 3D e cores) */
     background-color: rgba(255, 255, 255, 0.7);
     padding: 30px;
     border-radius: 15px;
@@ -189,8 +184,8 @@ body {
 }
 
 .lista-de-vagas {
-    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); 
-    gap: 55px; /* Mantido o espaçamento */
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); /* tamanho do div, das vagas*/
+    gap: 55px; /* espaçamento entre as div*/
     margin-top: 18px;
     text-align: left;
     padding: 0;

@@ -177,3 +177,32 @@ body {
     bottom: 20px; /* Distância da borda inferior */
     left: 20px; /* Distância da borda esquerda */
 }
+
+
+
+/* botão esuqeci minha senha */
+.text-only-button {
+    /* Reset Extremo */
+    background: transparent !important; /* Fundo transparente (ignora o branco) */
+    border: none !important; /* Remove borda */
+    box-shadow: none !important; /* Remove qualquer sombra sutil */
+    padding: 0;
+    margin: 0;
+    outline: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none;   
+    margin-top: 8px;      
+    
+    /* Estilização do texto */
+    color: black; /* Azul */
+    cursor: pointer; 
+    font-size: 16px;
+    
+    transition: color 0.3s ease;
+}
+
+.text-only-button:hover {
+    color: #36058b; /* Roxo */
+    text-decoration: underline; 
+}

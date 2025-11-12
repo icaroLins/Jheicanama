@@ -195,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="descricao-curta">${vaga.description ? vaga.description.substring(0, 100) + '...' : 'Descrição indisponível'}</p>
             </div>
             <div class="botoes-acao-candidato">
-                <button class="btn-acao btn-recusar" data-id="${vaga.id}">Recusar</button>
                 <button class="btn-acao btn-candidatar" data-id="${vaga.id}" title="A vaga será direcionada para o menu. 'Meus freelances'.">Candidatar</button>
             </div>
         `;
