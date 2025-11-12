@@ -111,8 +111,8 @@ public class JobController {
     }
 
     @DeleteMapping("/{vagaId}/deletar")
-    public ResponseEntity<?> deleteVaga(@PathVariable Long id) {
-        jobService.deleteJob(id);
+    public ResponseEntity<?> deleteVaga(@PathVariable("vagaId") Long vagaId) {
+        jobService.deleteJob(vagaId);
         return ResponseEntity.ok("Vaga excluida com sucesso");
     }
 }
