@@ -28,7 +28,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/usuarios/me",
             "/contratantes/login",
             "/contratantes/register",
-            "/contratantes/me");
+            "/contratantes/me",
+            "/api/password/forgot",
+            "/api/password/reset");
 
     public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
