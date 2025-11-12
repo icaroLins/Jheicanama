@@ -11,17 +11,29 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     @NotBlank(message = "Senha é obrigatória")
-     @Column(name = "pass_word", nullable = false)
+    @NotBlank(message = "Senha é obrigatória")
+    @Column(name = "pass_word", nullable = false)
     private String passWord;
 
-     @NotBlank(message = "Nome é obrigatório")
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
     @Email(message = "Email inválido")
     @NotBlank(message = "Email é obrigatório")
     @Column(unique = true)
     private String email;
+
+    @Column(name = "foto_perfil")
+    private String fotoPerfilUrl; // ex: "/uploads/foto123.jpg"
+
+    
+    public String getFotoPerfilUrl() {
+        return fotoPerfilUrl;
+    }
+
+    public void setFotoPerfilUrl(String fotoPerfilUrl) {
+        this.fotoPerfilUrl = fotoPerfilUrl;
+    }
 
     public String getEmail() {
         return email;

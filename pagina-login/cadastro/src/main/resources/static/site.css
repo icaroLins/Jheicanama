@@ -1,0 +1,129 @@
+body{
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;       /* fundo com a imagemm*/
+    background-size: contain;                                                             /*para preencher a tela toda sem distorcer */
+
+    color: rgb(6, 6, 113);
+    background-color: white;
+}
+ 
+ul{ /*personalização do (login e perfil)*/
+     display: flex;
+     gap: 15;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 5px;                                                   /*espassamento de borda*/
+}
+
+ a{/*cabeçalho*/
+    font-family: 'Verdana', sans-serif;
+     font-size: 25px;
+     color: rgb(5, 5, 113);
+     text-decoration: none;
+     font-weight: bold;
+ }
+
+/* espaço entre os ícones */
+nav ul li:last-child {
+    display: flex;
+    gap: 17px;
+}
+.retangulo{
+    width: 70%;
+    height: 300px;                                                                       /* Define a altura do retângulo */
+    background-color: rgba(20, 17, 104, 0.3);                                       /* Cor de fundo cinza clara */
+    border: 1px solid #ccc;                                                             /* Borda sólida de 1 pixel e cor cinza */
+    padding: 40px;                                                                        /* Centraliza o retângulo horizontalmente e dá espaçamento */
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);                                             /* Sombra suave para dar um efeito 3D */
+    background: rgba(255, 255, 255, 0.98);                                            /* fundo transparente */
+    backdrop-filter: blur(5px);                                                           /* desfoca só o que está atrás */
+   -webkit-backdrop-filter: blur(10px);                                                     /* compatibilidade com Safari */
+    margin: 0 auto;
+    /*flexbox*/
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.retangulo img {
+    width: 25%;                                  /* Faz a imagem ocupar toda a largura do retângulo */
+    height: 100%;                               /* Faz a imagem ocupar toda a altura do retângulo */
+    object-fit: cover;                         /* Garante que a imagem cubra todo o espaço sem se distorcer */
+}
+
+.texto-sobre-no{
+     flex: 1;
+}
+
+h1 {
+  font-family: 'Verdana', sans-serif;              /* Tenta usar Verdana. Se não encontrar, usa qualquer fonte sem serifa disponível. */
+  color: #2020be;                               /* Um tom de azul escuro, como no seu logo 'jheicafree' */
+  margin-bottom: 35px;
+}
+
+
+h3 {
+  font-family: 'Arial', sans-serif;            /* Tenta usar Arial. Se não, uma fonte sem serifa. */
+  color: #333333;                            /* Um cinza bem escuro, que é mais suave para ler do que o preto puro. */
+}
+
+
+/* --- ESTILO PARA A NOVA SECÇÃO COM DOIS RETÂNGULOS --- */
+
+/* 1. O contentor que vai alinhar os dois retângulos */
+.container-duplo {
+    display: flex;                                                 /* Ativa o layout flexível, colocando os itens lado a lado */
+    justify-content: center;                                      /* Centraliza os retângulos na página */
+    gap: 30px;                                                    /* Cria um espaço de 30px ENTRE os dois retângulos */
+    width: 90%;                                                   /* A mesma largura do retângulo de cima */
+    margin: 40px auto;                                              /* Centraliza o container e dá espaço vertical */
+}
+
+/* 2. O estilo para cada um dos retângulos menores */
+.retangulo-metade {
+    /* Pega a mesma estética do .retangulo original */
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* retângulos menores */
+    flex: 1;                                                               /* Faz com que cada retângulo ocupe o espaço disponível igualmente */
+    padding: 30px;                                                        /* Espaçamento interno */
+    height: 250px;              
+    display: flex;                                                            /* Itens lado a lado */
+    align-items: center;                                                      /* Alinha verticalmente */
+    gap: 40px;                                                                  /* Espaço entre o texto e a imagem */
+
+}
+
+/* 3. Estilo para os títulos dentro dos novos retângulos */
+.retangulo-metade h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: #050585;
+    margin-bottom: 15px;
+}
+
+.retangulo-metade p {
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+}
+
+.texto-bloco {
+    flex: 1; /* Permite que o texto ocupe o espaço disponível */
+}
+
+.retangulo-metade img {
+    width: 200px;                 /* Largura fixa para a imagem */
+    height: 170px;                /* Altura fixa*/
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+

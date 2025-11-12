@@ -1,0 +1,208 @@
+body {
+    /* Fundo com a imagem */
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
+    background-size: contain; /*para preencher a tela toda sem distorcer */
+
+    display: flex;
+    justify-content: center; /* Centraliza o container horizontalmente */
+    align-items: center;   /* Centraliza o container verticalmente */
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgb(17, 16, 16);
+    border-radius: 30px;
+    padding: 30px;
+    display: flex; /* painéis lado a lado */
+    width: 1000px;
+    height: 500px;
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+    overflow: hidden; /* Impede que elementos "vazem" para fora */
+}
+
+/* --- PAINEL ESQUERDO --- */
+.left-panel {
+    width: 50%; /* Ocupa metade do container */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Para posicionar o h2 */
+}
+
+.left-panel h1 { /*  texto*/
+    font-size: 35px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.left-panel h2 {
+    color: rgb(5, 5, 133);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.left-panel p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+
+/* --- PAINEL DIREITO (ÁREA DE LOGIN/CADASTRO) --- */
+.right-panel {
+    width: 50%; /* Ocupa a outra metade */
+    border-left: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Crucial para posicionar os forms dentro dele */
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* --- CAIXAS DE LOGIN E CADASTRO --- */
+.login-box {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border: 2px solid black;
+    border-radius: 20px 30px 20px 30px;
+    padding: 20px;
+    width: 300px; /* Aumentei um pouco para caber melhor */
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0 0 black;
+    position: relative; /* Permite que fiquem no mesmo lugar, um em cima do outro */
+    margin: 0 auto;
+}
+
+.login-box h3 {
+    font-size: 20px;
+    margin: 0 0 20px 0;
+    font-weight: normal;
+    text-align: center;
+}
+
+.input-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px 15px 10px 15px;
+    font-size: 16px;
+    box-shadow: 2px 2px 0 0 black;
+    background-color: rgba(255, 255, 255, 0.5); /* Um pouco menos transparente */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+/* CORREÇÃO DO PLACEHOLDER */
+.input-group input::placeholder {
+    color: #333;
+    opacity: 1;
+}
+
+.buttons-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px 15px 10px 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    box-shadow: 2px 2px 0 0 black;
+    box-sizing: border-box;
+}
+
+.btn-back {
+    background-color: rgba(200, 200, 200, 0.4);
+    font-weight: bold;
+}
+
+/* CLASSE PARA ESCONDER ELEMENTOS */
+.hidden {
+    display: none !important;
+}
+
+.side-by-side-buttons {
+    display: flex; /* Ativa o layout flexível */
+    width: 100%;   /* Ocupa toda a largura disponível */
+    gap: 10px;     /* Cria um espaço de 10px entre os botões */
+}
+
+/* cor para o novo botão "Contratante" */
+.btn-contratante {
+    background-color: rgb(5, 5, 113); /* Uma cor  para diferenciar */
+    color: white;
+    font-weight: bold;
+}
+.btn-logar {
+    background-color: rgb(5, 5, 113); /* Uma cor para diferenciar */
+    color: white;
+    font-weight: bold;
+}
+
+.btn-voltar-principal {
+    background-color: rgb(5, 5, 113); /* Cor de fundo do botão 'Logar' */
+    color: white; /* Cor do texto */
+    font-weight: bold;
+    width: 100px; /* Largura menor e fixa para um botão de canto */
+    padding: 8px 10px; /* Ajuste o padding para não ficar muito alto */
+
+    /* POSICIONAMENTO EXATO NO CANTO INFERIOR ESQUERDO */
+    position: absolute; 
+    bottom: 20px; /* Distância da borda inferior */
+    left: 20px; /* Distância da borda esquerda */
+}
+
+
+
+/* botão esuqeci minha senha */
+.text-only-button {
+    /* Reset Extremo */
+    background: transparent !important; /* Fundo transparente (ignora o branco) */
+    border: none !important; /* Remove borda */
+    box-shadow: none !important; /* Remove qualquer sombra sutil */
+    padding: 0;
+    margin: 0;
+    outline: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none;   
+    margin-top: 8px;      
+    
+    /* Estilização do texto */
+    color: black; /* Azul */
+    cursor: pointer; 
+    font-size: 16px;
+    
+    transition: color 0.3s ease;
+}
+
+.text-only-button:hover {
+    color: #36058b; /* Roxo */
+    text-decoration: underline; 
+}
