@@ -1,134 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const listaVagasElement = document.getElementById('lista-de-vagas');
-    let painelCandidatosAberto = null;
+    const token = localStorage.getItem('token');
 
-    /**
-     * Alterna o card da vaga do modo de visualização para o modo de edição.
-     * @param {string} vagaId - O ID da vaga.
-     * @param {HTMLElement} cardContent  - O elemento div do card da vaga.
-     */
-    function alternarParaEdicao(vagaId, cardContent) {
-        const infoPrincipal = cardContent.querySelector('.info-principal');
-        const botoesAcao = cardContent.querySelector('.botoes-acao-contratante');
-
-        const title = cardContent.querySelector('h3').textContent.trim();
-        const area = cardContent.querySelector('.area-vaga').textContent.replace('Área: ', '').trim();
-        const remuneracaoText = cardContent.querySelector('.remuneracao-vaga strong').textContent
-            .replace(/[R$]/g, '').trim().replace(/\./g, '').replace(',', '.');
-        const remuneracao = parseFloat(remuneracaoText || 0);
-        const description = cardContent.querySelector('.descricao-curta').textContent.trim();
-
-        // 2. Transforma o conteúdo em campos de input
-        infoPrincipal.innerHTML = `
-            <div class="campos-edicao">
-                <label>Título:</label><input type="text" id="edit-title-${vagaId}" value="${title}">
-                <label>Área:</label><input type="text" id="edit-area-${vagaId}" value="${area}">
-                <label>Remuneração (R$):</label><input type="number" step="0.01" id="edit-wage-${vagaId}" value="${remuneracao.toFixed(2)}">
-                <label>Descrição:</label><textarea id="edit-description-${vagaId}">${description}</textarea>
-            </div>
-        `;
-        
-        // 3. Modifica os botões de ação para Salvar e Cancelar
-        botoesAcao.innerHTML = `
-            <button class="btn-acao btn-salvar-edicao" data-vaga-id="${vagaId}">Salvar</button>
-            <button class="btn-acao btn-cancelar-edicao" data-vaga-id="${vagaId}">Cancelar</button>
-        `;
-
-        // 4. Adiciona listeners para os novos botões
-        cardContent.querySelector('.btn-salvar-edicao').addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleSalvarEdicao(vagaId, cardContent);
-        });
-
-        cardContent.querySelector('.btn-cancelar-edicao').addEventListener('click', (e) => {
-            e.stopPropagation();
-            alternarParaVisualizacao(vagaId, cardContent, {
-                title, area, wage: remuneracao, description
-            });
-        });
+    if (!token) {
+        alert("Você precisa estar logado!");
+        window.location.href = 'login.html';
+        return;
     }
-
-    /**
-     * Alterna o card da vaga do modo de edição de volta para o modo de visualização.
-     * @param {string} vagaId 
-     * @param {HTMLElement} cardContent
-     * @param {object} vagaData 
-     */
-    function alternarParaVisualizacao(vagaId, cardContent, vagaData) {
-        const infoEdicao = cardContent.querySelector('.campos-edicao');
-        const botoesAcao = cardContent.querySelector('.botoes-acao-contratante');
-        
-        const remuneracaoFormatada = parseFloat(vagaData.wage || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-            minimumFractionDigits: 2
-        });
-
-        cardContent.innerHTML = `
-            <div class="info-principal">
-                <h3>${vagaData.title || 'Título Não Informado'}</h3>
-                <p class="area-vaga">Área: ${vagaData.area || 'Não Especificada'}</p>
-                <p class="remuneracao-vaga">Remuneração: <strong>${remuneracaoFormatada}</strong></p>
-                <p class="descricao-curta">${vagaData.description || 'Descrição indisponível'}</p>
-            </div>
-            <div class="botoes-acao-contratante">
-                <button class="btn-acao btn-info">Informações</button>
-                <button class="btn-acao btn-editar">Editar</button>
-                <button class="btn-acao btn-finalizar">Finalizar</button>
-            </div>
-        `;
-        
-        cardContent.querySelector('.btn-info').addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleInformacoes(vagaId, cardContent); 
-        });
-        
-        cardContent.querySelector('.btn-editar').addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleEditar(vagaId, cardContent); 
-        });
-        
-        cardContent.querySelector('.btn-finalizar').addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleFinalizar(vagaId, cardContent);
-        });
-    }
-
-    /**
-     * Lida com o clique em Salvar, enviando os dados atualizados para o backend.
-     * @param {string} vagaId 
-     * @param {HTMLElement} cardContent 
-     */
-    async function handleSalvarEdicao(vagaId, cardContent) {
-        // 1. Captura os novos valores dos campos
-        const novoTitle = document.getElementById(`edit-title-${vagaId}`).value;
-        const novaArea = document.getElementById(`edit-area-${vagaId}`).value;
-        const novaRemuneracao = parseFloat(document.getElementById(`edit-wage-${vagaId}`).value);
-        const novaDescricao = document.getElementById(`edit-description-${vagaId}`).value;
-
-        if (!novoTitle || isNaN(novaRemuneracao)) {
-            alert("Título e Remuneração são obrigatórios e devem ser válidos.");
-            return;
-        }
-
-        const novosDadosVaga = {
-            id: vagaId,
-            title: novoTitle,
-            area: novaArea,
-            wage: novaRemuneracao,
-            description: novaDescricao
-        };
+    
+    async function buscarVagas() {
+        // Limpa o conteúdo inicial ("Carregando vagas...")
+        listaVagasElement.innerHTML = ''; 
 
         try {
-
-            cardContent.querySelector('.btn-salvar-edicao').textContent = 'Salvando...';
-
-            const response = await fetch(`/api/vaga/${vagaId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(novosDadosVaga)
-            });
+            // Endpoint para buscar as vagas prontas
+            const response = await fetch('http://localhost:8080/vaga/minhas', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }); 
 
             if (!response.ok) {
                 throw new Error(`Erro ao salvar: ${response.status}`);

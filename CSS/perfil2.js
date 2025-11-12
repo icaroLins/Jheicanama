@@ -5,21 +5,61 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============================================= */
     
     // --- 1- API ---
+<<<<<<< HEAD
+    
+    const API_PERFIL_URL = 'http://localhost:8080/contratantes/me'; 
+    const token = localStorage.getItem('token');
+
+    if(!token){
+        alert("Você precisa estar logado!");
+        window.location.href = 'login.html';
+        return;
+    }
+
+    console.log("Token enviado no fetch:", token);
+
+=======
     const API_PERFIL_URL = ''; // Substitua pelo seu endpoint real
+>>>>>>> 60a131e8a7a660d05893c55ad1eb385cc63f31f8
     
     // --- 2. FUNÇÃO PRINCIPAL: RECEBER DADOS E INSERIR NO HTML ---
     async function carregarDadosDoPerfil() {
         try {
             const resposta = await fetch(API_PERFIL_URL, {
                 method: 'GET',
+<<<<<<< HEAD
+                 headers: {
+                    'Authorization': `Bearer ${token}`, // Envia o token
+                    'Content-Type': 'application/json'
+                }// token aqui
+               
+=======
                 // Adicione o token ou headers de autenticação aqui
+>>>>>>> 60a131e8a7a660d05893c55ad1eb385cc63f31f8
             });
+
+            if (resposta.status === 401) {
+                alert('Sessão expirada. Faça login novamente.');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (resposta.status === 403) {
+                alert('Você não tem permissão para acessar este recurso.');
+                return;
+            }
 
             if (!resposta.ok) {
                 throw new Error(`Erro de rede ou servidor: ${resposta.status}`);
             }
 
-            const dadosDaEmpresa = await resposta.json();
+            let dadosDaEmpresa = {};
+            try {
+                dadosDaEmpresa = await resposta.json();
+            } catch (e) {
+                console.warn("Resposta vazia ou inválida, usando objeto vazio.");
+            }
 
             // Chama a função para o HTML
             preencherPerfil(dadosDaEmpresa);
@@ -44,10 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const fotoUsuario = document.getElementById('fotoUsuario');
 
         // Atualiza as informações de texto
+<<<<<<< HEAD
+        document.getElementById('infoNome').textContent = dados.name || 'Não informado';
+        document.getElementById('infoEmail').textContent = dados.email || 'Não informado';
+        
+        // CNPJ e Telefone
+        document.getElementById('infoCNPJ').textContent = dados.cnpj || 'Não informado';
+        document.getElementById('infoTelefone').textContent = dados.telefone || 'Não informado';
+=======
         if (infoNome) infoNome.textContent = dados.nome || 'Não informado';
         if (infoEmail) infoEmail.textContent = dados.email || 'Não informado';
         if (infoCNPJ) infoCNPJ.textContent = dados.cnpj || 'Não informado';
         if (infoTelefone) infoTelefone.textContent = dados.telefone || 'Não informado';
+>>>>>>> 60a131e8a7a660d05893c55ad1eb385cc63f31f8
         
         // Atualiza a foto se o URL for válido
         if (dados.urlFoto && fotoUsuario) {

@@ -24,9 +24,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // Endpoints públicos
     private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
             "/usuarios/login",
-            "/usuarios/register",
-            "/contratantes/login",
-            "/contratantes/register"
+        "/usuarios/register",
+        "/usuarios/me",
+        "/contratantes/login",
+        "/contratantes/register",
+        "/contratantes/me"
     );
 
     public JwtAuthenticationFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {

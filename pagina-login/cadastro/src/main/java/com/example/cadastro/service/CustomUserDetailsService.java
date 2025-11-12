@@ -32,10 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         // Depois tenta contratante
-        Contractor contractor = contractorRepository.findByCnpj(identifier);
+        Contractor contractor = contractorRepository.findByEmail(identifier);
         if (contractor != null) {
             return org.springframework.security.core.userdetails.User
-                    .withUsername(contractor.getCnpj())
+                    .withUsername(contractor.getEmail())
                     .password(contractor.getPassWord())
                     .roles("CONTRACTOR")
                     .build();

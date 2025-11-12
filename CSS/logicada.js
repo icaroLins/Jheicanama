@@ -201,9 +201,12 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(async res => {
                 if (res.ok) {
-                    const token = await res.text();
-                    alert("Login usuário realizado com sucesso!");
-                    console.log("Token:", token);
+                    const resJson = await res.json();    // pega o objeto { token, tipo }
+                const token = resJson.token;         // pega só o token
+                localStorage.setItem("token", token);
+                alert("Login usuário realizado com sucesso!");
+                console.log("Token:", token);
+                window.location.href = "http://127.0.0.1:5500/CSS/perfil.html";
                 } else {
                     const msg = await res.text();
                     alert("Erro no login usuário: " + msg);
