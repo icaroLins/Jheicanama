@@ -36,8 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Envia como query param, conforme backend
-            const url = "http://localhost:8080/api/password/forgot";
+            const url = `http://localhost:8080/api/password/forgot?email=${encodeURIComponent(email)}`;
             const response = await fetch(url, {
                 method: 'POST'
             });

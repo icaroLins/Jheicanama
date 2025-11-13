@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Adiciona event listeners aos botões
         cardVaga.querySelector('.btn-candidatar').addEventListener('click', (e) => handleCandidatar(e, vaga.id));
-        cardVaga.querySelector('.btn-recusar').addEventListener('click', (e) => handleRecusar(e, vaga.id));
+        
 
         return cardWrapper;
     }

@@ -27,7 +27,7 @@ public class PasswordResetService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Value("${app.frontend.url:http://localhost:5500}")
+    @Value("${app.frontend.url:http://127.0.0.1:5500}")
     private String frontendUrl;
 
     public PasswordResetService(UserRepository userRepository,
@@ -42,7 +42,7 @@ public class PasswordResetService {
         Candidate user = userRepository.findByEmail(email);
 
         if(user == null){
-
+            throw new RuntimeException("Email não encontrado");
         }
 
         String token = UUID.randomUUID().toString();
@@ -54,7 +54,7 @@ public class PasswordResetService {
 
         tokenRepository.save(resetToken);
 
-        String link = frontendUrl + "/reset-senha.html?token=" + token;
+        String link = frontendUrl + "/pagina-login/cadastro/src/main/resources/static/reset-senha.html?token=" + token;
         emailService.sendResetEmail(user.getEmail(), link);
 
     }

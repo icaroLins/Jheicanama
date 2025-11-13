@@ -18,11 +18,10 @@ public class EmailService {
 
         message.setTo(to);
         message.setSubject("Redefinição de senha!");
-        message.setText("Olá!\\n" + //
-                "\\n" + //
-                "Para redefinir sua senha, clique no link abaixo:\\n" + //
-                "\" + resetLink + \"\\n" + //
-                "\\n" + //
+        message.setText(
+                "Olá!\n\n" +
+                "Para redefinir sua senha, clique no link abaixo:\n" +
+                resetLink + "\n\n" +
                 "Este link expira em 1 hora.");
         message.setFrom("jheicanama@gmail.com");
 
