@@ -19,6 +19,7 @@ import com.example.cadastro.model.job.JobVacancies;
 import com.example.cadastro.repository.ContractorRepository;
 import com.example.cadastro.security.JwtUtil;
 import com.example.cadastro.service.ContractorService;
+import com.example.cadastro.service.candidatura.CandidaturaService;
 import com.example.cadastro.service.job.JobService;
 
 @RestController
@@ -28,14 +29,16 @@ public class JobController {
     private final JobService jobService;
     private final JwtUtil jwtUtil;
     private final ContractorService contractorService;
+    private final CandidaturaService candidaturaService;
     private final ContractorRepository contractorRepository;
 
     public JobController(JobService jobService, JwtUtil jwtUtil, ContractorService contractorService,
-            ContractorRepository contractorRepository) {
+            ContractorRepository contractorRepository, CandidaturaService candidaturaService) {
         this.contractorService = contractorService;
         this.jobService = jobService;
         this.jwtUtil = jwtUtil;
         this.contractorRepository = contractorRepository;
+        this.candidaturaService = candidaturaService;
     }
 
     @PostMapping("/criar")
@@ -112,6 +115,7 @@ public class JobController {
 
     @DeleteMapping("/{vagaId}/deletar")
     public ResponseEntity<?> deleteVaga(@PathVariable("vagaId") Long vagaId) {
+        candidaturaService.deletCandidatura();
         jobService.deleteJob(vagaId);
         return ResponseEntity.ok("Vaga excluida com sucesso");
     }

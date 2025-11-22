@@ -87,4 +87,8 @@ public class CandidaturaService {
         return candidaturaRepository.findByUser(candidate);
     }
 
+    public void deletCandidatura(){
+        candidaturaRepository.deleteAll();
+    }
+
 }
