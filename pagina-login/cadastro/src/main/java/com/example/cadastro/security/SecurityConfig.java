@@ -40,6 +40,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // desativa CSRF
             .cors(cors -> {}) // usa o bean de CORS abaixo
             .authorizeHttpRequests(auth -> auth
+                    .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers(
                         "/static/**",
                             "/usuarios/login",
