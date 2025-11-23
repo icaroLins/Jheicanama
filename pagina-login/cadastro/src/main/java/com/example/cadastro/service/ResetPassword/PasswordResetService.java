@@ -54,7 +54,7 @@ public class PasswordResetService {
 
         tokenRepository.save(resetToken);
 
-        String link = frontendUrl + "/pagina-login/cadastro/src/main/resources/static/reset-senha.html?token=" + token;
+        String link = frontendUrl + "/reset-senha.html?token=" + token;
         emailService.sendResetEmail(user.getEmail(), link);
 
     }
