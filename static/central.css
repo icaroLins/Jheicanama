@@ -1,0 +1,432 @@
+body {
+    /* Estilo de fundo, centralização e padding da página */
+    background: url("Free Vector _ Workforce.jpg") no-repeat center center fixed;
+    background-size: contain; 
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 40px; 
+    box-sizing: border-box; 
+    padding-top: 60px; /* Espaço para o cabeçalho fixo */
+}
+
+/* O container do cabeçalho */
+.main-header {
+    width: 100%;
+    background-color: #ffffff; 
+    padding: 0; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+/* Seu estilo UL aplicado à lista dentro do cabeçalho */
+.header-list { 
+    display: flex;
+    justify-content: space-between; 
+    list-style-type: none;
+    padding: 15px 2.5%; 
+    width: 95%; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* 1. Estilos base para todos os textos do cabeçalho - AGORA INCLUI FONT-WEIGHT BOLD */
+.header-list a, .logo-text, .menu-titulo-colapsavel {
+    font-family: 'Verdana', sans-serif;
+    font-size: 25px; 
+    color: rgb(5, 5, 113);
+    text-decoration: none;
+    font-weight: bold; /* Adicionado para igualar o visual do h2 */
+    transition: all 0.2s ease-out;
+}
+
+/* 2. NOVA CLASSE: Estilo de título sublinhado (semelhante ao h2) */
+.header-item-style {
+    display: inline-block; /* Permite que a borda se ajuste ao texto */
+    padding-bottom: 5px; /* Espaçamento entre o texto e a linha */
+    border-bottom: 3px solid rgba(5, 5, 133, 0.8); /* Borda sólida */
+    line-height: 1; /* Ajuda no alinhamento vertical dentro do flexbox */
+}
+
+/* Garante que o texto FREELANCE não seja afetado pelo display flex dos LIs */
+.logo-text {
+    display: block;
+}
+
+/* Estilo para a linha divisória (HR) */
+.header-separator {
+    border: 0;
+    height: 1px;
+    background-color: #ccc; 
+    margin: 0; 
+}
+
+/* Contêiner dos links à direita (MENU e CRIAR) */
+.nav-links-right {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+}
+
+/* ============================================= */
+/* ESTILOS DO MENU DROPDOWN NO HEADER */
+/* ============================================= */
+
+/* Contêiner do botão MENU */
+.menu-header-toggle {
+    position: relative; 
+}
+
+/* Estilo do botão de clique MENU (inclui o icone-toggle) */
+/* Removida repetição de estilos já definidos na regra .header-list a, .logo-text, .menu-titulo-colapsavel */
+.menu-titulo-colapsavel {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%; 
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Estilo do ícone de toggle (seta) */
+.icone-toggle {
+    transition: transform 0.3s ease;
+}
+
+/* 2. Estilo do Dropdown quando está ABERTO (Contêiner das opções) */
+.menu-dropdown-header {
+    /* POSICIONAMENTO */
+    position: absolute;
+    top: 55px; /* Alinhado logo abaixo do cabeçalho */
+    right: 2.5%; /* Alinhado com a borda direita do conteúdo */
+    z-index: 99; 
+
+    /* Estilos visuais */
+    width: 250px; 
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+
+    /* PROPRIEDADES CRÍTICAS PARA A VISIBILIDADE E ANIMAÇÃO: */
+    max-height: 500px; /* Altura máxima quando aberto */
+    padding: 10px; /* Espaçamento interno quando aberto */
+    opacity: 1; /* Visível quando aberto */
+    overflow: hidden; 
+    
+    /* TRANSIÇÃO CRÍTICA PARA A ANIMAÇÃO */
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+/* Remove margem e padding do ul dentro do dropdown */
+.menu-dropdown-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo dos links dentro do dropdown */
+.menu-dropdown-header a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 16px; 
+    color: #444;
+    transition: background-color 0.2s;
+    font-weight: normal; /* Garante que o dropdown não fique em negrito */
+}
+
+.menu-dropdown-header a:hover {
+    background-color: #f0f0f0;
+    color: rgb(5, 5, 113);
+    font-weight: normal; 
+}
+
+/* 3. Ajuste final para o estado ESCONDIDO (Aplicado pelo JavaScript) */
+.menu-escondido {
+    max-height: 0 !important; /* FORÇA altura zero (escondido) */
+    padding: 0 !important; /* FORÇA padding zero (sem altura) */
+    opacity: 0 !important; /* FORÇA invisibilidade (escondido) */
+    overflow: hidden !important; 
+    
+    /* Remove borda e sombra para esconder completamente */
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================= */
+/* ESTILOS DE VAGAS E CARD */
+/* ============================================= */
+.vagas-container-grande {
+    /* Estilo Falso 3D */
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%; 
+    max-width: 1000px; 
+    text-align: center;
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+    border: 1px solid rgb(0, 0, 0);
+    color: #333;
+    position: relative;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.vagas-container-grande h2 {
+    color: #050585; 
+    margin-bottom: 25px;
+    font-size: 28px;
+    border-bottom: 2px solid rgba(5, 5, 133, 0.5);
+    padding-bottom: 10px;
+}
+
+.lista-de-vagas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    gap: 20px;
+    margin-top: 20px;
+    text-align: left;
+    grid-auto-flow: row dense
+}
+
+/* Estilo do Cartão de Vaga */
+.card-vaga {
+    background-color:rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.card-vaga:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 0 0 rgba(0,0,0,0.5);
+}
+
+.card-vaga h3 {
+    color: rgb(5, 5, 133);
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.area-vaga {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.remuneracao-vaga {
+    color: #28a745;
+    font-size: 1.1em;
+}
+
+.descricao-curta {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* Botão voltar para a página principal */
+.btn-voltar-principal {
+    margin-top: 30px;
+    background: rgb(5, 5, 133); 
+    color: white;
+    font-weight: bold;
+    border: 2px solid black; 
+    box-shadow: 2px 2px 0 0 black;
+    padding: 8px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px; 
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.btn-voltar-principal:hover {
+    background: #36058b; 
+}
+
+/* Estilos para os botões de ação do Contratante */
+.botoes-acao-contratante {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.btn-acao {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: 1px solid #050585;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s; /* Adicionado box-shadow na transição */
+}
+
+/* --- ESTILOS DE BOTÕES DE AÇÃO EXISTENTES --- */
+
+.btn-info {
+    background-color: #050585;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #03035c;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+    color: #333;
+    border-color: #ffc107;
+}
+
+.btn-editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-finalizar {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.btn-finalizar:hover {
+    background-color: #c82333;
+}
+
+/* --- NOVOS ESTILOS DE BOTÕES DE AÇÃO (CONTRATAR/DISPENSAR) --- */
+
+.btn-contratar {
+    /* Cor de sucesso/aceitação (Verde) */
+    background-color: #28a745; 
+    color: white;
+    border-color: #28a745;
+    box-shadow: 2px 2px 0 0 rgba(0,0,0,0.3); /* Aplicando a sombra padrão */
+}
+
+.btn-contratar:hover {
+    background-color: #1e7e34; /* Verde mais escuro no hover */
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.5);
+}
+
+.btn-dispensar {
+    /* Cor de neutra/aviso (Cinza escuro/Chumbo) */
+    background-color: #6c757d; 
+    color: white;
+    border-color: #6c757d;
+    box-shadow: 2px 2px 0 0 rgba(0,0,0,0.3); /* Aplicando a sombra padrão */
+}
+
+.btn-dispensar:hover {
+    background-color: #5a6268; /* Cinza mais escuro no hover */
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.5);
+}
+
+/* --- ESTILOS PARA O PAINEL DE DETALHES --- */
+
+/* Estilos para o Painel de Candidatos (Abre abaixo do card) */
+.painel-candidatos {
+    grid-column: 1 / -1;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.painel-candidatos h3 {
+    color: #050585;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.lista-candidatos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    flex-direction: column;
+}
+
+.candidato-card-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    /* Incluí a sombra para dar um destaque visual, seguindo o padrão de box-shadow */
+    box-shadow: 1px 1px 0 0 rgba(0,0,0,0.1); 
+}
+
+.candidato-card-info h4 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Estilos para o Painel de Confirmação de Finalizar */
+.confirmacao-finalizar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.confirmacao-finalizar p {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.botoes-confirmacao {
+    display: flex;
+    gap: 15px;
+}
+
+.botoes-confirmacao button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.botoes-confirmacao button:hover {
+    opacity: 0.8;
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: white;
+    border: 1px solid #6c757d;
+}
+
+.btn-confirma {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}

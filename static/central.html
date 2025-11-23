@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central</title>
+    <link rel="stylesheet" href="central.css">
+</head>
+<body>
+    <header class="main-header">
+    <nav class="header-nav-content">
+        <ul class="header-list">
+            <li class="logo-item">
+                <span class="logo-text">FREELANCE</span> 
+            </li>
+            
+            <li class="nav-links-right">
+                <div id="btn-navegacao" class="menu-header-toggle menu-titulo-colapsavel">
+                    MENU <span class="icone-toggle">▼</span>
+                </div>
+                
+                <a href="vagas.html" class="vagas-link">CRIAR</a>
+            </li> 
+        </ul>
+    </nav>
+    <hr class="header-separator">
+    
+    <div id="menu-opcoes" class="menu-conteudo menu-escondido menu-dropdown-header">
+        <ul>
+            <li><a href="perfil2.html">Meu Perfil</a></li>
+            <li><a href="vagas.html">Criar</a></li>
+            <li><a href="central.html">Vagas</a></li>
+            <li><a href="login.html">Login/Sair</a></li>
+        </ul>
+    </div>
+</header>
+       
+    
+    <main class="vagas-container-grande">
+
+        <h2>Vagas de Empregos</h2>
+
+        <div id="lista-de-vagas" class="lista-de-vagas">
+            <p>Carregando vagas...</p>
+        </div>
+    </main>
+
+    <div id="painel-detalhes-modal" class="painel-modal-wrapper">
+    </div>
+        
+  <script src="central.js"></script>
+   
+</body>
+</html>
