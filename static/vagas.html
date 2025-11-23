@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vagas amostra para o contratante</title>
+    <link rel="stylesheet" href="vagas.css">
+</head>
+<body>
+    <header class="main-header">
+    <nav class="header-nav-content">
+        <ul class="header-list">
+            <li class="logo-item">
+                <span class="logo-text">FREELANCE</span> 
+            </li>
+            
+            <li class="nav-links-right">
+                <div id="btn-navegacao" class="menu-header-toggle menu-titulo-colapsavel">
+                    MENU <span class="icone-toggle">▼</span>
+                </div>
+                
+            
+            </li> 
+        </ul>
+    </nav>
+    <hr class="header-separator"> 
+    
+    <div id="menu-opcoes" class="menu-conteudo menu-escondido menu-dropdown-header">
+        <ul>
+            <li><a href="perfil2.html">Meu Perfil</a></li>
+            <li><a href="login.html">Login/Sair</a></li>
+            <li><a href="vagas.html">Criar</a></li>
+            <li><a href="central.html">Vagas</a></li>
+        </ul>
+    </div>
+</header>
+
+
+     <div class="main-body">
+        <div class="form-container">
+            <h1>Vaga de Emprego</h1>
+
+            <form action="/salvar-dados" method="post"> 
+            
+                <div class="form-group">
+                    <label for="titulo">Título da Vaga:</label>
+                    <input type="text" id="titulo" name="title" required> 
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição da Vaga:</label>
+                    <textarea id="descricao" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="remuneracao">Remuneração (em R$):</label>
+                    <input type="number" id="remuneracao" name="wage" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Área/Departamento:</label>
+                    <input type="text" id="area" name="area" required>
+                </div>
+
+                <div class="form-group submit-buttons">
+                     
+                       <button type="submit">Criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="vagas.js"></script>
+</body>
+</html>

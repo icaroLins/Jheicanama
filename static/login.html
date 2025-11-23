@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>página de login, juntamente com o cadastro do usuário</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Painel Esquerdo -->
+        <div class="left-panel">
+            <div>
+                <h2>jheicafree</h2>
+                <h1>Aqui começa a sua nova oportunidade</h1>
+                <p>
+                    Venha trabalhar conosco: praticidade e dinheiro mais perto de você.
+                    Empregos rápidos e com maior portabilidade. Entre para nossa comunidade!!
+                </p>
+            </div>
+
+            <a href="index.html" class="btn btn-voltar-principal" id="btn-voltar-principal">Sair</a>
+
+        </div>
+
+        <!-- Painel Direito (Login + Cadastros) -->
+        <div class="right-panel">
+
+            <!-- 1. Box de Login -->
+            <div class="login-box" id="login-box">
+                <h3>LOGIN</h3>
+                <div class="input-group">
+
+                    <input type="text" id="login-identificador" placeholder="CPF/EMAIL">
+
+
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="SENHA">
+                </div>
+
+                <div class="buttons-group">
+
+                    <a href="#" class="btn btn-register" id="btn-cadastrar">Cadastra-se</a>
+                    <div class="side-by-side-buttons">
+                        <a href="#" class="btn btn-register" id="btn-contratante-login">Contratante</a>
+                        <a href="#" class="btn btn-logar" id="btn-login">Logar</a>
+                    </div>
+
+                </div>
+            </div>
+            <button id="forgot-password-btn" class="text-only-button forgot-password-link">
+                Esqueci minha senha
+            </button>
+
+            <!-- Box de Recuperar Senha (fora do login-box) -->
+            <div class="login-box hidden" id="forgot-password-box">
+                <h3>Recuperar Senha</h3>
+                <form id="forgot-password-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                    </div>
+                    <button type="submit" class="btn">Enviar</button>
+                    <a href="#" class="btn btn-back" id="btn-voltar-esqueci">Voltar</a>
+                </form>
+                <div id="message-box"></div>
+            </div>
+
+            <!-- 2. Box de Cadastro de Usuário -->
+            <div class="login-box hidden" id="cadastro-box">
+                <h3>CADASTRO</h3>
+                <div class="input-group">
+                    <input type="text" id="candidato-nome" placeholder="Nome completo">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="candidato-email" placeholder="E-mail">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="candidato-cpf" placeholder="CPF">
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="candidato-senha" placeholder="Crie uma senha">
+                </div>
+                <div class="input-group">
+                    <input type="date" id="candidato-nascimento" placeholder="Data de Nascimento">
+                </div>
+                <div class="buttons-group">
+                    <a href="#" id="btn-finalizar-candidato" class="btn">FINALIZAR</a>
+                    <div class="side-by-side-buttons">
+                        <a href="#" class="btn btn-back" id="btn-voltar">Voltar</a>
+                        <a href="#" class="btn btn-contratante">Contratante</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Box de Cadastro de Contratante (MOVIDO PARA DENTRO DO RIGHT-PANEL) -->
+            <div class="login-box hidden" id="form-contratante">
+                <h3>CADASTRO CONTRATANTE</h3>
+                <div class="input-group">
+                    <input type="text" id="contratante-empresa" placeholder="Nome da empresa">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="contratante-name" placeholder="Proprietário">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="contratante-cnpj" placeholder="CNPJ">
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="contratante-telefone" placeholder="Telefone">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="contratante-email" placeholder="E-mail">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="contratante-senha" placeholder="Crie uma senha">
+                </div>
+                <div class="buttons-group">
+                    <a href="#" class="btn" id="btn-finalizar-contratante">FINALIZAR</a>
+                    <a href="#" class="btn btn-back" id="btn-voltar-contratante">Voltar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="logicada.js"></script>
+    <script src="Esqueci.js"></script>
+
+
+</body>
+
+</html>

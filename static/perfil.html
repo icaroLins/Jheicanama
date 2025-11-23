@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do voluntário</title>
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+    <header class="main-header">
+    <nav class="header-nav-content">
+        <ul class="header-list">
+            <li class="logo-item">
+                <span class="logo-text">FREELANCE</span> 
+            </li>
+            
+            <li class="nav-links-right">
+                <div id="btn-navegacao" class="menu-header-toggle menu-titulo-colapsavel">
+                    MENU <span class="icone-toggle">▼</span>
+                </div>
+                
+            </li> 
+        </ul>
+    </nav>
+    <hr class="header-separator"> 
+    
+    <div id="menu-opcoes" class="menu-conteudo menu-escondido menu-dropdown-header">
+        <ul>
+            <li><a href="amostra.html">Freelances</a></li>
+             <li><a href="usuvaga.html">Meus Freelances</a></li>
+            <li><a href="login.html">Login/Sair</a></li>
+        </ul>
+    </div>
+</header>   
+
+
+        <div class="profale-conteiner">
+           
+            <h2>PERFIL</h2>
+
+            
+            <div class="profile-pic">
+                <img id="fotoUsuario" src="https://via.placeholder.com/150" alt="Foto do Usuário">
+                <input type="file" id="inputFoto" accept="image/*" style="display:none;">
+                <button id="btnEditarFoto">Editar Foto</button>
+            </div>
+
+            <div class="user-info">
+                <p><strong>Nome:</strong> <span id="infoNome">Carregando...</span></p>
+                <p><strong>Email:</strong> <span id="infoEmail">Carregando...</span></p>
+                <p><strong>CPF:</strong> <span id="infoCPF">Carregando...</span></p>
+                <!-- <p><strong>Nascimento:</strong> <span id="infoNascimento">Carregando...</span></p> -->
+            </div>
+
+        </div>
+
+
+    <script src="perfil.js"></script>
+
+
+</body>
+</html>
