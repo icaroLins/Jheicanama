@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
 
     // Formulários
     const loginBox = document.getElementById('login-box');
@@ -124,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             passWord: document.getElementById("contratante-senha").value
         };
 
-        fetch("http://localhost:8080/contratantes/register", {
+        fetch(`${API_BASE}/contratantes/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dataNascimento: document.getElementById("candidato-nascimento").value
         };
 
-        fetch("http://localhost:8080/usuarios/register", {
+        fetch(`${API_BASE}/usuarios/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (modoContratante) {
             // Login contratante
-            fetch("http://localhost:8080/contratantes/login", {
+            fetch(`${API_BASE}/contratantes/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ identificador, senha })
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("tipo", data.tipo);
-                        window.location.href = "http://127.0.0.1:5500/pagina-login/cadastro/src/main/resources/static/central.html";
+                        window.location.href = "https://icarolins.github.io/FrontJheicanama/central.html";
                     } else {
                         const msg = await res.text();
                         alert("Erro no login contratante: " + msg);
@@ -197,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(err => console.error("Erro:", err));
         } else {
             // Login usuário
-            fetch("http://localhost:8080/usuarios/login", {
+            fetch(`${API_BASE}/usuarios/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ identificador, senha })
@@ -210,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         localStorage.setItem("userId", resJson.id);
                         alert("Login usuário realizado com sucesso!");
                         console.log("Token:", resJson.token);
-                         window.location.href = "http://127.0.0.1:5500/pagina-login/cadastro/src/main/resources/static/perfil.html";
+                         window.location.href = "https://icarolins.github.io/FrontJheicanama/perfil.html";
 
                     } else {
                         const msg = await res.text();

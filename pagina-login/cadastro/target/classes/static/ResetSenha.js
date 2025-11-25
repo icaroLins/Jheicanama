@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
     const form = document.getElementById('reset-password-form');
     const newPasswordInput = document.getElementById('new-password');
     const confirmPasswordInput = document.getElementById('confirm-password');
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const url = `http://localhost:8080/api/password/reset?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`;
+            const url = `${API_BASE}/api/password/reset?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`;
             const response = await fetch(url, { method: 'POST' });
 
             if (response.ok) {

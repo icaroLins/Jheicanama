@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
 
     const token = localStorage.getItem('token');
     if (!token) {
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const listaAceitas = document.getElementById('lista-aceitas');
         const listaRecusadas = document.getElementById('lista-recusadas');
 
-        const API_VAGAS_CANDIDATO = `http://localhost:8080/vagas/${Number(candidatoId)}/candidature`;
+    const API_VAGAS_CANDIDATO = `${API_BASE}/vagas/${Number(candidatoId)}/candidature`;
         // ajuste conforme sua rota backend
 
         if (!listaEspera || !listaAceitas || !listaRecusadas) {

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
 
     /* ============================================= */
     /* 1. LÓGICA DE ENVIO DO FORMULÁRIO (CRIAR VAGA) */
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:8080/vaga/criar', {
+            const response = await fetch(`${API_BASE}/vaga/criar`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 alert('Vaga salva com sucesso!');
                 form.reset();
-                window.location.href = 'http://127.0.0.1:5500/CSS/central.html';
+                window.location.href = 'https://icarolins.github.io/FrontJheicanama/central.html';
             } else {
                 // Mostra o erro do servidor se existir
                 const msg = responseData.message || response.statusText || 'Erro desconhecido';

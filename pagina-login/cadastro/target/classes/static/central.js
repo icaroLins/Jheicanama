@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
 
     let painelCandidatosAberto = null;
     const listaVagasElement = document.getElementById('lista-de-vagas');
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`[AÇÃO] Tentando CONFIRMAR candidato ${candidatoId} da vaga ${vagaId}...`);
 
         try {
-            const response = await fetch(`http://localhost:8080/vagas/${vagaId}/candidato/${candidatoId}/status`, {
+            const response = await fetch(`${API_BASE}/vagas/${vagaId}/candidato/${candidatoId}/status`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Envia o token
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`[AÇÃO] Tentando DISPENSAR candidato ${candidatoId} da vaga ${vagaId}...`);
 
         try {
-            const response = await fetch(`http://localhost:8080/vagas/${vagaId}/candidato/${candidatoId}/recusar`, {
+            const response = await fetch(`${API_BASE}/vagas/${vagaId}/candidato/${candidatoId}/recusar`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Envia o token
@@ -181,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         painelCandidatosAberto = painelAtual;
 
         try {
-            const API_CANDIDATOS = `http://localhost:8080/vagas/${vagaId}/candidaturas`;
+            const API_CANDIDATOS = `${API_BASE}/vagas/${vagaId}/candidaturas`;
             const response = await fetch(API_CANDIDATOS, {
                 method: 'GET',
                 headers: {
@@ -234,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPanel.innerHTML = '<p>Finalizando...</p>';
 
             try {
-                const API_DELETE_VAGA = `http://localhost:8080/vaga/${vagaId}/deletar`;
+                const API_DELETE_VAGA = `${API_BASE}/vaga/${vagaId}/deletar`;
 
                 const response = await fetch(API_DELETE_VAGA, {
                     method: 'DELETE',
@@ -309,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
         listaVagasElement.innerHTML = '';
 
         try {
-            const response = await fetch('http://localhost:8080/vaga/minhas', {
+            const response = await fetch(`${API_BASE}/vaga/minhas`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Envia o token

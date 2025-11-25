@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
     
     // --- 1. API (Configuração) ---
     
     // API.
-    const API_PERFIL_URL = 'http://localhost:8080/usuarios/me'; 
+    const API_PERFIL_URL = `${API_BASE}/usuarios/me`; 
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Atualiza a foto se o URL for válido
         if (dados.fotoPerfilUrl && fotoUsuario) {
-            fotoUsuario.src = "http://localhost:8080" + dados.fotoPerfilUrl;
+            fotoUsuario.src = `${API_BASE}${dados.fotoPerfilUrl}`;
         } else {
             fotoUsuario.src = "https://via.placeholder.com/150";
         }
@@ -129,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append("foto", file);
 
             try {
-                const resposta = await fetch("http://localhost:8080/usuarios/upload_foto", {
-                    method: "POST",
+                const resposta = await fetch(`${API_BASE}/usuarios/upload_foto`, {
+                    method: 'POST',
                     headers: {
-                        "Authorization": `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`
                     },
                     body: formData
                 });
