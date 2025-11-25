@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://jheicanama-production.up.railway.app';
     // ----- ELEMENTOS -----
     const forgotBtn = document.getElementById('forgot-password-btn');
     const forgotBox = document.getElementById('forgot-password-box');
@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const url = `${API_BASE}/api/password/forgot?email=${encodeURIComponent(email)}`;
-            const response = await fetch(url, {
-                method: 'POST'
-            });
+            const response = await fetch(url, { method: 'POST' });
 
             if (response.ok) {
                 messageBox.textContent = "Se o e-mail estiver cadastrado, você receberá instruções para redefinir a senha.";

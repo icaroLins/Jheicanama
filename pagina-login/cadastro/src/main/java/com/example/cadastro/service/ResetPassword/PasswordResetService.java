@@ -42,7 +42,7 @@ public class PasswordResetService {
         Candidate user = userRepository.findByEmail(email);
 
         if(user == null){
-            throw new RuntimeException("Email não encontrado");
+            return;
         }
 
         String token = UUID.randomUUID().toString();
@@ -55,7 +55,10 @@ public class PasswordResetService {
         tokenRepository.save(resetToken);
 
         String link = frontendUrl + "/reset-senha.html?token=" + token;
-        emailService.sendResetEmail(user.getEmail(), link);
+        try{
+            emailService.sendResetEmail(user.getEmail(), link);
+        }catch(Exception e){
+        }
 
     }
 

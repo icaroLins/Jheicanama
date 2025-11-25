@@ -3,6 +3,7 @@ package com.example.cadastro.service.email;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.scheduling.annotation.Async;
 
 @Service
 public class EmailService {
@@ -13,6 +14,7 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Async
     public void sendResetEmail(String to, String resetLink) {
         SimpleMailMessage message = new SimpleMailMessage();
 
