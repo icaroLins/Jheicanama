@@ -4,11 +4,18 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.scheduling.annotation.Async;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
+    private static final Logger log = LoggerFactory.getLogger(EmailService.class);
+
+    @Value("${spring.mail.username:}")
+    private String mailUser;
 
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
@@ -25,8 +32,14 @@ public class EmailService {
                 "Para redefinir sua senha, clique no link abaixo:\n" +
                 resetLink + "\n\n" +
                 "Este link expira em 1 hora.");
-        message.setFrom("jheicanama@gmail.com");
+        if (mailUser != null && !mailUser.isEmpty()) {
+            message.setFrom(mailUser);
+        }
 
-        javaMailSender.send(message);
+        try {
+            javaMailSender.send(message);
+        } catch (Exception e) {
+            log.error("Falha ao enviar email de reset para {}", to, e);
+        }
     }
 }
