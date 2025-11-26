@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://SEU_APP.up.railway.app';
+    const API_BASE = new URLSearchParams(window.location.search).get('api') || 'https://jheicanama-production.up.railway.app';
 
     // Formulários
     const loginBox = document.getElementById('login-box');
