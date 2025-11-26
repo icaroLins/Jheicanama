@@ -91,4 +91,8 @@ public class CandidaturaService {
         candidaturaRepository.deleteAll();
     }
 
+    public void deletarPorVaga(Long vagaId){
+        candidaturaRepository.deleteByVagas_Id(vagaId);
+    }
+
 }

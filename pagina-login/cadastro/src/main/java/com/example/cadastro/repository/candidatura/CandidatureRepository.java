@@ -15,4 +15,6 @@ public interface CandidatureRepository extends JpaRepository<Candidatura, Long >
     Optional<Candidatura> findByUserAndVagas(Candidate user, JobVacancies vagas);
     List<Candidatura> findByUser(Candidate user);
     List<Candidatura> findByVagas(JobVacancies vagas);
+    void deleteByVagas(JobVacancies vagas);
+    void deleteByVagas_Id(Long vagaId);
 }

@@ -33,6 +33,10 @@ public class JobService {
         jobRepository.deleteById(id);
     }
 
+    public JobVacancies getById(Long id){
+        return jobRepository.findById(id).orElse(null);
+    }
+
     public JobVacancies edidVaga(Long id, Long contractorId, JobVacancies vagaAtualizada ){
         Optional<JobVacancies> vagaOptional =  jobRepository.findById(id);
 

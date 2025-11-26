@@ -14,10 +14,10 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
     private static final Logger log = LoggerFactory.getLogger(EmailService.class);
 
-    @Value("${spring.mail.username:}")
+    @Value("${MAIL_USER}")
     private String mailUser;
 
-    @Value("${spring.mail.password:}")
+    @Value("${MAIL_PASSWORD}")
     private String mailPassword;
 
     public EmailService(JavaMailSender javaMailSender) {
@@ -32,9 +32,9 @@ public class EmailService {
         message.setSubject("Redefinição de senha!");
         message.setText(
                 "Olá!\n\n" +
-                "Para redefinir sua senha, clique no link abaixo:\n" +
-                resetLink + "\n\n" +
-                "Este link expira em 1 hora.");
+                        "Para redefinir sua senha, clique no link abaixo:\n" +
+                        resetLink + "\n\n" +
+                        "Este link expira em 1 hora.");
         if (mailUser != null && !mailUser.isEmpty()) {
             message.setFrom(mailUser);
         }

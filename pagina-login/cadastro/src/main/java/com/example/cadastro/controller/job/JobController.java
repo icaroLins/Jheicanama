@@ -24,7 +24,7 @@ import com.example.cadastro.service.job.JobService;
 
 @RestController
 @RequestMapping("/vaga")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"https://icarolins.github.io","http://127.0.0.1:5500","http://localhost:5500"})
 public class JobController {
     private final JobService jobService;
     private final JwtUtil jwtUtil;
@@ -114,8 +114,32 @@ public class JobController {
     }
 
     @DeleteMapping("/{vagaId}/deletar")
-    public ResponseEntity<?> deleteVaga(@PathVariable("vagaId") Long vagaId) {
-        candidaturaService.deletCandidatura();
+    public ResponseEntity<?> deleteVaga(@PathVariable("vagaId") Long vagaId,
+                                        @RequestHeader("Authorization") String token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        if (!jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(401).body("Token invalido ou expirado!");
+        }
+
+        String email = jwtUtil.extractIdentifier(token);
+        Contractor contractor = contractorService.searchByEmail(email);
+        if (contractor == null) {
+            return ResponseEntity.status(404).body("Contratante não encontrado");
+        }
+
+        JobVacancies vaga = jobService.getById(vagaId);
+        if (vaga == null) {
+            return ResponseEntity.status(404).body("Vaga não encontrada");
+        }
+
+        if (!vaga.getContractor().getId().equals(contractor.getId())) {
+            return ResponseEntity.status(403).body("Você não tem permissão para excluir esta vaga");
+        }
+
+        candidaturaService.deletarPorVaga(vagaId);
         jobService.deleteJob(vagaId);
         return ResponseEntity.ok("Vaga excluida com sucesso");
     }
