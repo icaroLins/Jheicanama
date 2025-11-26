@@ -17,6 +17,9 @@ public class EmailService {
     @Value("${spring.mail.username:}")
     private String mailUser;
 
+    @Value("${spring.mail.password:}")
+    private String mailPassword;
+
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
@@ -37,6 +40,10 @@ public class EmailService {
         }
 
         try {
+            if (mailUser == null || mailUser.isEmpty() || mailPassword == null || mailPassword.isEmpty()) {
+                log.warn("Envio de email ignorado: credenciais SMTP não configuradas");
+                return;
+            }
             javaMailSender.send(message);
         } catch (Exception e) {
             log.error("Falha ao enviar email de reset para {}", to, e);
