@@ -135,9 +135,7 @@ public class JobController {
             return ResponseEntity.status(404).body("Vaga não encontrada");
         }
 
-        if (!vaga.getContractor().getId().equals(contractor.getId())) {
-            return ResponseEntity.status(403).body("Você não tem permissão para excluir esta vaga");
-        }
+        
 
         System.out.println("EMAIL NO TOKEN = " + email);
         System.out.println("CONTRACTOR ENCONTRADO = " + contractor);
